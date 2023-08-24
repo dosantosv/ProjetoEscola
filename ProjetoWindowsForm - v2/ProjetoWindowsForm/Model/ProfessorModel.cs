@@ -10,11 +10,11 @@ namespace ProjetoWindowsForm.Model
     {
         ProfessorDAO dao = new ProfessorDAO();
 
-        public List<Professor> ObterListTodosProfessores()
+        public List<T> Listar<T>() where T : Pessoa
         {
             try
             {
-                return dao.ObterListTodosProfessores();
+                return dao.ObterListTodosProfessores() as List<T>;
             }
             catch (Exception)
             {
@@ -24,11 +24,11 @@ namespace ProjetoWindowsForm.Model
             
         }
 
-        public void Cadastrar(Pessoa dado)
+        public void Cadastrar(Pessoa pessoa)
         {
             try
             {
-                dao.CadastrarProfessor((Professor)dado);
+                dao.CadastrarProfessor((Professor)pessoa);
             }
             catch (Exception ex)
             {
@@ -37,11 +37,11 @@ namespace ProjetoWindowsForm.Model
             }
         }
 
-        public void Editar(Pessoa dado)
+        public void Editar(Pessoa pessoa)
         {
             try
             {
-                dao.EditarProfessor((Professor)dado);
+                dao.EditarProfessor((Professor)pessoa);
             }
             catch (Exception ex)
             {
@@ -49,11 +49,11 @@ namespace ProjetoWindowsForm.Model
             }
         }
 
-        public void Excluir(Pessoa dado)
+        public void Excluir(Pessoa pessoa)
         {
             try
             {
-                dao.ExcluirProfessor((Professor)dado);
+                dao.ExcluirProfessor((Professor)pessoa);
             }
             catch (Exception ex)
             {

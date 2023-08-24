@@ -1,19 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using ProjetoWindowsForm.DAO;
+using ProjetoWindowsForm.Entities;
 
 namespace ProjetoWindowsForm.Model
 {
     public class TurmaModel
     {
         TurmaDAO dao = new TurmaDAO();
-        public DataTable Listar()
+        public List<Turma> Listar()
         {
             try
             {
-                DataTable dt = new DataTable();
-                dt = dao.Listar();
-                return dt;
+                return dao.Listar();
             }
             catch (Exception ex)
             {

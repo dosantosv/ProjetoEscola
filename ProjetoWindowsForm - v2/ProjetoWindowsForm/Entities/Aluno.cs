@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System; 
 
 namespace ProjetoWindowsForm.Entidades
 {
     public class Aluno : Pessoa
     {
-        public int Ra { get; set; }
+        public long Ra { get; set; }
         public string Sala { get; set; }
 
         public Aluno()

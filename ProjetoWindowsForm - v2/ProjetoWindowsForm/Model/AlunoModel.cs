@@ -11,11 +11,11 @@ namespace ProjetoWindowsForm.Model
 
         AlunoDAO dao = new AlunoDAO();
 
-        public List<Aluno> GetListAlunosAll()
+        public List<Aluno> ObterListGeralAlunos()
         {
             try
             {
-                return dao.GetListAlunosAll();
+                return dao.ObterListaTodosAlunos();
             }
             catch (Exception)
             {
@@ -23,12 +23,11 @@ namespace ProjetoWindowsForm.Model
             }
         }
 
-
-        public List<Professor> GetListTurmaProfessores()
+        public List<T> Listar<T>() where T : Pessoa
         {
             try
             {
-                return dao.GetListTurmaProfessores();
+                return dao.ObterListaTurmaProfessores() as List<T>;
             }
             catch (Exception)
             {
@@ -36,11 +35,11 @@ namespace ProjetoWindowsForm.Model
             }
         }
 
-        public void Cadastrar(Pessoa dado)
+        public void Cadastrar(Pessoa pessoa)
         {
             try
             {
-                dao.CadastrarAluno((Aluno)dado);
+                dao.CadastrarAluno((Aluno)pessoa);
             }
             catch (Exception ex)
             {
@@ -49,24 +48,23 @@ namespace ProjetoWindowsForm.Model
             }
         }
 
-        public void Excluir(Pessoa dado)
+        public void Excluir(Pessoa pessoa)
         {
             try
             {
-                dao.ExcluirAluno((Aluno)dado);
+                dao.ExcluirAluno((Aluno)pessoa);
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
 
-        public void Editar(Pessoa dado)
+        public void Editar(Pessoa pessoa)
         {
             try
             {
-                dao.EditarAluno((Aluno)dado);
+                dao.EditarAluno((Aluno)pessoa);
             }
             catch (Exception ex)
             {

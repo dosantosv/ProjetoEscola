@@ -134,8 +134,10 @@
     <Compile Include="Entities\Materia.cs" />
     <Compile Include="Entities\Pessoa.cs" />
     <Compile Include="Entities\Professor.cs" />
+    <Compile Include="Entities\Turma.cs" />
+    <Compile Include="Interface\IPermissao.cs" />
     <Compile Include="Model\AlunoModel.cs" />
-    <Compile Include="Model\IPessoa.cs" />
+    <Compile Include="Interface\IPessoa.cs" />
     <Compile Include="Model\MateriaModel.cs" />
     <Compile Include="Model\ProfessorModel.cs" />
     <Compile Include="Model\TurmaModel.cs" />
@@ -270,6 +272,63 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\password_26px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\correto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\numeros.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aproved.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\failed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MicrosoftTeams-image %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cadastrar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cadastrar2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EXCLUIR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LIMPAR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EDITAR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EDITAR2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\editarAluno.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\excluir].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\limparAluno.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cadastrarAluno.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CALCULAR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EDITARCALC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EXCLUIRCALC.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

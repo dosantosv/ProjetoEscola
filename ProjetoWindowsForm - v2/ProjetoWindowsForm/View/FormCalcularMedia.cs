@@ -9,7 +9,6 @@ namespace ProjetoWindowsForm.View
 {
     public partial class FormCalcularMedia : Form
     {
-        ProfessorModel model = new ProfessorModel();
         Materia dado = new Materia();
         AlunoProfessorVM viewModel = new AlunoProfessorVM();
         MateriaModel materiaModel = new MateriaModel();
@@ -215,6 +214,12 @@ namespace ProjetoWindowsForm.View
             if (string.IsNullOrEmpty(txtRa.Text))
             {
                 MessageBox.Show("Selecione na tabela um aluno para assim poder calcular suas notas!");
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(lblMedia.Text))
+            {
+                MessageBox.Show("Impossível calcular novamente a nota desse aluno, caso queira editar, selecione a opção EDITAR!");
                 return;
             }
 

@@ -11,9 +11,83 @@ namespace ProjetoWindowsForm.DAO
     {
         MySqlCommand sql;
         Conexao con = new Conexao();
-        Random random = new Random();
+        Random random = new Random(); 
 
-        
+        #region CRUD
+        public void CadastrarProfessor(Professor professor)
+        {
+            try
+            {
+                con.AbrirConexao();
+                professor.Id = random.Next(1, 100);
+                sql = new MySqlCommand("INSERT INTO professores(id, nome, nascimento, sala, sexo, materia, usuario, senha) VALUES(@id, @nome, @nascimento, @sala, @sexo, @materia, @usuario, @senha)", con.con);
+                sql.Parameters.AddWithValue("@id", professor.Id);
+                sql.Parameters.AddWithValue("@nome", professor.Nome);
+                sql.Parameters.AddWithValue("@nascimento", professor.Nascimento);
+                sql.Parameters.AddWithValue("@sala", professor.Sala);
+                sql.Parameters.AddWithValue("@sexo", professor.Sexo);
+                sql.Parameters.AddWithValue("@materia", professor.Materia);
+                sql.Parameters.AddWithValue("@usuario", professor.Usuario);
+                sql.Parameters.AddWithValue("@senha", professor.Senha);
+                sql.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.FecharConexao();
+            }
+        }
+
+        public void EditarProfessor(Professor professor)
+        {
+            try
+            {
+                con.AbrirConexao();
+                sql = new MySqlCommand("UPDATE professores SET nome = @nome, nascimento = @nascimento, sala = @sala, sexo = @sexo, materia = @materia, usuario = @usuario, senha = @senha WHERE id = @id", con.con);
+                sql.Parameters.AddWithValue("@nome", professor.Nome);
+                sql.Parameters.AddWithValue("@nascimento", professor.Nascimento);
+                sql.Parameters.AddWithValue("@sala", professor.Sala);
+                sql.Parameters.AddWithValue("@sexo", professor.Sexo);
+                sql.Parameters.AddWithValue("@materia", professor.Materia);
+                sql.Parameters.AddWithValue("@usuario", professor.Usuario);
+                sql.Parameters.AddWithValue("@senha", professor.Senha);
+                sql.Parameters.AddWithValue("@id", professor.Id);
+                sql.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.FecharConexao();
+            }
+        }
+
+        public void ExcluirProfessor(Professor professor)
+        {
+            try
+            {
+                con.AbrirConexao();
+                sql = new MySqlCommand("DELETE FROM professores WHERE id = @id", con.con);
+                sql.Parameters.AddWithValue("@id", professor.Id);
+                sql.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.FecharConexao();
+            }
+        }
+        #endregion
+
+        #region GRID PROFESSOR
         public List<Professor> ObterListTodosProfessores()
         {
             try
@@ -37,7 +111,7 @@ namespace ProjetoWindowsForm.DAO
                     var usuario = Convert.ToString(dr["usuario"]);
                     var senha = Convert.ToString(dr["senha"]);
                     professores.Add(new Professor(id, nome, dataNascimento, sala, sexo, materia, usuario, senha));
-                }              
+                }
                 return professores;
             }
             catch (Exception)
@@ -49,82 +123,11 @@ namespace ProjetoWindowsForm.DAO
                 con.FecharConexao();
             }
         }
+        #endregion
 
-        public void CadastrarProfessor(Professor dado)
-        {
-            try
-            {
-                con.AbrirConexao();
-                dado.Id = random.Next(1, 100);
-                sql = new MySqlCommand("INSERT INTO professores(id, nome, nascimento, sala, sexo, materia, usuario, senha) VALUES(@id, @nome, @nascimento, @sala, @sexo, @materia, @usuario, @senha)", con.con);
-                sql.Parameters.AddWithValue("@id", dado.Id);
-                sql.Parameters.AddWithValue("@nome", dado.Nome);
-                sql.Parameters.AddWithValue("@nascimento", dado.Nascimento);
-                sql.Parameters.AddWithValue("@sala", dado.Sala);
-                sql.Parameters.AddWithValue("@sexo", dado.Sexo);
-                sql.Parameters.AddWithValue("@materia", dado.Materia);
-                sql.Parameters.AddWithValue("@usuario", dado.Usuario);
-                sql.Parameters.AddWithValue("@senha", dado.Senha);
-                sql.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-        }
+        #region GRID MEDIAS
 
-        public void EditarProfessor(Professor dado)
-        {
-            try
-            {
-                con.AbrirConexao();
-                sql = new MySqlCommand("UPDATE professores SET nome = @nome, nascimento = @nascimento, sala = @sala, sexo = @sexo, materia = @materia, usuario = @usuario, senha = @senha WHERE id = @id", con.con);
-                sql.Parameters.AddWithValue("@nome", dado.Nome);
-                sql.Parameters.AddWithValue("@nascimento", dado.Nascimento);
-                sql.Parameters.AddWithValue("@sala", dado.Sala);
-                sql.Parameters.AddWithValue("@sexo", dado.Sexo);
-                sql.Parameters.AddWithValue("@materia", dado.Materia);
-                sql.Parameters.AddWithValue("@usuario", dado.Usuario);
-                sql.Parameters.AddWithValue("@senha", dado.Senha);
-                sql.Parameters.AddWithValue("@id", dado.Id);
-                sql.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-        }
-
-        public void ExcluirProfessor(Professor dado)
-        {
-            try
-            {
-                con.AbrirConexao();
-                sql = new MySqlCommand("DELETE FROM professores WHERE id = @id", con.con);
-                sql.Parameters.AddWithValue("@id", dado.Id);
-                sql.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-        }
-
-        #region MEDIAS
-
-        public List<Professor> GetListProfessorPerMateriaForGlobalVar()
+        public List<Professor> ObterListaAlunosPorMateriaDeAcordoComProfessorLogado()
         {
             try
             {

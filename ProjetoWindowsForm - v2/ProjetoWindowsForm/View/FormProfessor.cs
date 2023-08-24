@@ -11,6 +11,7 @@ namespace ProjetoWindowsForm
     {
         ProfessorModel model = new ProfessorModel();
         Professor professor = new Professor();
+        Diretoria diretoria = new Diretoria();  
         TurmaModel turmaModel = new TurmaModel();
         AlunoMateriasVM viewModel = new AlunoMateriasVM();
         public FormProfessor()
@@ -22,7 +23,8 @@ namespace ProjetoWindowsForm
         {
             try
             {
-                gridProfessores.DataSource = model.ObterListTodosProfessores();
+                gridProfessores.AutoGenerateColumns = false;
+                gridProfessores.DataSource = model.Listar<Professor>();
             }
             catch (Exception ex)
             {
@@ -32,7 +34,7 @@ namespace ProjetoWindowsForm
 
         }
 
-        public void CadastrarProfessor(Professor professor)
+        public void CadastrarProfessor(Professor professor, Diretoria diretoria)
         {
             try
             {
@@ -43,14 +45,28 @@ namespace ProjetoWindowsForm
                 professor.Sexo = cbSexo.Text;
                 professor.Usuario = txtUsuario.Text;
                 professor.Senha = txtSenha.Text;
-                
-                if (txtNome.Text == "")
+
+                if (string.IsNullOrEmpty(txtNome.Text))
                 {
                     MessageBox.Show("O nome não pode ser vázio");
                     return;
-                } else if (txtUsuario.Text == "" && txtSenha.Text == "")
+                } 
+
+                if (string.IsNullOrEmpty(txtUsuario.Text) || string.IsNullOrEmpty(txtSenha.Text))
                 {
                     MessageBox.Show("Você deve digitar todas as informações de usuário!");
+                    return;
+                }
+
+                if (txtUsuario.Text == diretoria.Permissao)
+                {
+                    MessageBox.Show("Impossível criar um usuário de professor como ADMIN!");
+                    return;
+                }
+
+                if (!string.IsNullOrEmpty(txtId.Text))
+                {
+                    MessageBox.Show("Esse professor já existe, selecione Limpar e cadastre um novo professor caso deseje!");
                     return;
                 }
 
@@ -59,7 +75,6 @@ namespace ProjetoWindowsForm
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show("Erro ao cadastrar o professor, preencha os campos corretamente!" + ex.Message);
             }
         }
@@ -69,7 +84,7 @@ namespace ProjetoWindowsForm
             try
             {
                 professor.Id = Convert.ToInt32(txtId.Text);
-                if (txtId.Text == "")
+                if (string.IsNullOrEmpty(txtId.Text))
                 {
                     MessageBox.Show("Para realizar uma exclusão você deve primeiro selecionar um Professor");
                 }
@@ -98,7 +113,7 @@ namespace ProjetoWindowsForm
                 professor.Usuario = txtUsuario.Text;
                 professor.Senha = txtSenha.Text;
 
-                if (txtId.Text == "")
+                if (string.IsNullOrEmpty(txtId.Text))
                 {
                     MessageBox.Show("Não existe nenhum Professor a ser editado!");
                     return;
@@ -120,7 +135,6 @@ namespace ProjetoWindowsForm
             txtId.Text = "";
             txtNome.Text = "";
             dtNascimento.Text = "";
-            cbSala.Text = "";
             txtUsuario.Text = "";
             txtSenha.Text = "";
         }
@@ -129,17 +143,16 @@ namespace ProjetoWindowsForm
         private void FormProfessor_Load(object sender, EventArgs e)
         {
             cbSala.DataSource = turmaModel.Listar();
-            cbMateria.DataSource = viewModel.ListaMateriasFixa(viewModel);
+            cbMateria.DataSource = viewModel.ListaMateriasSomenteNome(viewModel);
             cbMateria.DisplayMember = "NomeMateria";
-            cbSala.ValueMember = "turma";
-            cbSala.DisplayMember = "turma";
+            cbSala.DisplayMember = "Sala";
             cbSexo.SelectedIndex = 0;
             ListarDados();
         }
-
+        
         private void btnCadastrarProf_Click(object sender, EventArgs e)
         {
-            CadastrarProfessor(professor);
+            CadastrarProfessor(professor, diretoria);
             ListarDados();
             LimparDados();
         }
@@ -147,20 +160,25 @@ namespace ProjetoWindowsForm
         private void gridProfessores_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             txtId.Text = gridProfessores.CurrentRow.Cells[0].Value.ToString();
-            cbSala.Text = gridProfessores.CurrentRow.Cells[1].Value.ToString();
-            cbMateria.Text = gridProfessores.CurrentRow.Cells[2].Value.ToString();
-            txtUsuario.Text = gridProfessores.CurrentRow.Cells[3].Value.ToString();
-            txtSenha.Text = gridProfessores.CurrentRow.Cells[4].Value.ToString();
-            txtNome.Text = gridProfessores.CurrentRow.Cells[5].Value.ToString();
-            dtNascimento.Value = Convert.ToDateTime(gridProfessores.CurrentRow.Cells[6].Value);
-            cbSexo.Text = gridProfessores.CurrentRow.Cells[7].Value.ToString();
+            txtNome.Text = gridProfessores.CurrentRow.Cells[1].Value.ToString();
+            dtNascimento.Value = Convert.ToDateTime(gridProfessores.CurrentRow.Cells[2].Value);
+            cbSala.Text = gridProfessores.CurrentRow.Cells[3].Value.ToString();
+            cbSexo.Text = gridProfessores.CurrentRow.Cells[4].Value.ToString();
+            cbMateria.Text = gridProfessores.CurrentRow.Cells[5].Value.ToString();
+            txtUsuario.Text = gridProfessores.CurrentRow.Cells[6].Value.ToString();
+            txtSenha.Text = gridProfessores.CurrentRow.Cells[7].Value.ToString();
         }
 
         private void btnEditarProf_Click(object sender, EventArgs e)
         {
-            if (txtId.Text == "")
+            if (string.IsNullOrEmpty(txtId.Text))
             {
                 MessageBox.Show("Selecione na tabela um professor para editar");
+                return;
+            }
+
+            if (MessageBox.Show("Deseja mesmo Editar o Professor?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
+            {
                 return;
             }
             EditarProfessor(professor);
@@ -170,7 +188,7 @@ namespace ProjetoWindowsForm
 
         private void btnExcluirProf_Click(object sender, EventArgs e)
         {
-            if (txtId.Text == "")
+            if (string.IsNullOrEmpty(txtId.Text))
             {
                 MessageBox.Show("Selecione na tabela um Professor para excluir!");
                 return;
@@ -269,6 +287,16 @@ namespace ProjetoWindowsForm
             t2 = new Thread(Voltar);
             t2.SetApartmentState(ApartmentState.MTA);
             t2.Start();
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

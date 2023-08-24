@@ -9,8 +9,7 @@ namespace ProjetoWindowsForm.Model
     public class MateriaModel
     {
         MateriaDAO dao = new MateriaDAO();
-        Materia dado = new Materia();
-        AlunoProfessorVM dados = new AlunoProfessorVM();
+
         public void CadastrarNotas(Materia dado, AlunoProfessorVM dados)
         {
             try
@@ -50,16 +49,5 @@ namespace ProjetoWindowsForm.Model
             }
         }
 
-        public List<Materia> ObterListaMateriasFixa()
-        {
-            try
-            {
-                return dao.ObterListaMateriasFixa();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
     }
 }

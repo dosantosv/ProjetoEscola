@@ -118,52 +118,109 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="xdLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\xdLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="report_card_80px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\report_card_80px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="classroom_80px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\classroom_80px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="correto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\correto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="class_32px1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\class_32px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="classroom_80px1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\classroom_80px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="aproved" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\aproved.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="class_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\class_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="schedule_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\schedule_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="user_locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\user_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="customer_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\customer_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="journal_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\journal_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="failed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\failed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="math_80px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\math_80px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pngPassword" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pngPassword.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="classroom_80px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\classroom_80px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="male_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\male_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="students_80px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\students_80px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="male_user_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\male_user_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="report_card_80px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\report_card_80px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="user_locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\user_locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="password_26px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\password_26px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pngPassword" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pngPassword.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="xdLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\xdLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CALCULAR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CALCULAR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="class_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\class_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cadastrar2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cadastrar2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cadastrarAluno" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cadastrarAluno.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="numeros" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\numeros.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LIMPAR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LIMPAR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MicrosoftTeams-image (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MicrosoftTeams-image (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="classroom_80px1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\classroom_80px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="male_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\male_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cadastrar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cadastrar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="journal_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\journal_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EDITARCALC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EDITARCALC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="customer_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\customer_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="limparAluno" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\limparAluno.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="excluir]" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\excluir].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EDITAR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EDITAR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="male_user_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\male_user_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EDITAR2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EDITAR2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="schedule_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\schedule_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="editarAluno" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\editarAluno.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EXCLUIR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EXCLUIR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EXCLUIRCALC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EXCLUIRCALC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -3,27 +3,28 @@ using System.Windows.Forms;
 using System.Threading;
 using ProjetoWindowsForm.View;
 using ProjetoWindowsForm.Repository;
+using ProjetoWindowsForm.Entidades;
+using ProjetoWindowsForm.Model;
 
 namespace ProjetoWindowsForm
 {
-    public partial class FormPrincipal : Form
+    public partial class FormPrincipal : Form 
     {
+        UsuarioModel model = new UsuarioModel();
+        Diretoria diretoria = new Diretoria();
         public FormPrincipal()
         {
+
             InitializeComponent();
         }
 
-        public void Login()
+        public void Login(Diretoria diretoria)
         {
-            if (Logado.Usuario == "admin")
+             if (diretoria.Permissao == Logado.Permissao)
             {
                 LoginDiretoria();
             }
-            else if( Logado.Senha == "123")
-            {
-                LoginDiretoria();
-            }
-            else if (Logado.Usuario != "admin")
+            else
             {
                 LoginProfessor();
             }
@@ -31,19 +32,31 @@ namespace ProjetoWindowsForm
 
         public void LoginProfessor()
         {
-            btnAlunos.Enabled = false;
-            btnProfessores.Enabled = false;
-            btnBoletim.Enabled = false;
+            btnAlunos.Click -= btnAlunos_Click;
+            btnAlunos.Cursor = Cursors.No;
+            btnProfessores.Click -= btnProfessores_Click;
+            btnProfessores.Cursor = Cursors.No;
+            btnBoletim.Click -= btnBoletim_Click;
+            btnBoletim.Cursor = Cursors.No;
             btnCalcularMedia.Enabled = true;
+            toolTip1.Active = false;
+            toolTip2.Active = true;
+            btnCalcularMedia.Cursor = Cursors.Hand;
         }
+
 
         public void LoginDiretoria()
         {
-            btnAlunos.Enabled = true;
-            btnProfessores.Enabled = true;
-            btnBoletim.Enabled = true;
-            btnCalcularMedia.Enabled = false;
+            btnAlunos.Cursor = Cursors.Hand;
+            btnProfessores.Cursor = Cursors.Hand;
+            btnBoletim.Cursor = Cursors.Hand;
+            btnCalcularMedia.Cursor = Cursors.No;
+            toolTip1.Active = true;
+            toolTip2.Active = false;
+            btnCalcularMedia.Click -= btnCalcularMedia_Click;
         }
+
+ 
 
         private void btnAlunos_Click(object sender, EventArgs e)
         {
@@ -52,7 +65,6 @@ namespace ProjetoWindowsForm
             alunos = new Thread(AbrirAlunos);
             alunos.SetApartmentState(ApartmentState.STA);
             alunos.Start();
-            
         }
 
         private void btnProfessores_Click(object sender, EventArgs e)
@@ -101,8 +113,8 @@ namespace ProjetoWindowsForm
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-            Login();
-        }
+            Login(diretoria);
+       }
 
         private void AbrirBoletim()
         {

@@ -20,14 +20,14 @@ namespace ProjetoWindowsForm
         {
             try
             {
-                if (txtUsuario.Text == "")
+                if (string.IsNullOrEmpty(txtUsuario.Text))
                 {
                     MessageBox.Show("Preencha o Usuário");
                     txtUsuario.Focus();
                     return;
                 }
 
-                if (txtSenha.Text == "")
+                if (string.IsNullOrEmpty(txtSenha.Text))
                 {
                     MessageBox.Show("Preencha a Senha");
                     txtSenha.Focus();
@@ -36,7 +36,7 @@ namespace ProjetoWindowsForm
 
                 diretoria.Usuario = txtUsuario.Text;
                 diretoria.Senha = txtSenha.Text;
-
+                
 
                 diretoria = model.Login(diretoria);
 
@@ -51,7 +51,7 @@ namespace ProjetoWindowsForm
                 this.Hide();
                 form.Show();
 
-                if (diretoria.Usuario == "admin")
+                if (txtUsuario.Text == diretoria.Usuario)
                 {
                     form.LoginDiretoria();
                 } 
@@ -59,12 +59,14 @@ namespace ProjetoWindowsForm
                 {
                     form.LoginProfessor();
                 }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao Logar" + ex.Message);
             }
         }
+
 
         public void LogarProf(Professor professor)
         {
@@ -73,7 +75,6 @@ namespace ProjetoWindowsForm
 
                 professor.Usuario = txtUsuario.Text;
                 professor.Senha = txtSenha.Text;
-
 
                 professor = model.LoginProf(professor);
 
@@ -85,17 +86,13 @@ namespace ProjetoWindowsForm
                 }
 
                 FormPrincipal form = new FormPrincipal();
-                if (Logado.Usuario == "admin")
+                if (txtUsuario.Text == professor.Usuario)
                 {
-                    form.LoginDiretoria();
-                }
-                else if(Logado.Senha == "123")
-                {
-                    form.LoginDiretoria();
+                    form.LoginProfessor();
                 }
                 else
                 {
-                    form.LoginProfessor();
+                    form.LoginDiretoria();
                 }
 
                 this.Hide();

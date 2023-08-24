@@ -13,6 +13,8 @@ namespace ProjetoWindowsForm.DAO
     {
         MySqlCommand sql;
         Conexao con = new Conexao();
+
+        #region CRUD
         public void CadastrarNotas(Materia dado, AlunoProfessorVM dados)
         {
 			try
@@ -83,17 +85,18 @@ namespace ProjetoWindowsForm.DAO
                 con.FecharConexao();
             }
         }
+        #endregion
 
-        #region MEDIAS
+        #region GRID MEDIAS
 
-        public List<Materia> GetListMateriasAll()
+        public List<Materia> ObterListaMateriasNotas()
         {
             try
             {
                 con.AbrirConexao();
                 MySqlCommand sql = new MySqlCommand("SELECT materia, N1, N2, N3, N4, media, status, ra_aluno FROM alunos_materias", con.con);
 
-                return GetListMaterias(sql);
+                return ObterListaMaterias(sql);
             }
             catch (Exception)
             {
@@ -107,13 +110,15 @@ namespace ProjetoWindowsForm.DAO
 
         #endregion
 
-        public List<Materia> ObterListaMateriasComMedia() 
+        #region FILTERS GRID BOLETIM
+
+        public List<Materia> ObterListaMateriasNotasComMedia() 
         {
             try
             {
                 con.AbrirConexao();
                 MySqlCommand sql = new MySqlCommand("SELECT materia, N1, N2, N3, N4, media, status, ra_aluno FROM alunos_materias WHERE media <> ''", con.con);
-                return GetListMaterias(sql);
+                return ObterListaMaterias(sql);
             }
             catch (Exception)
             {
@@ -125,7 +130,7 @@ namespace ProjetoWindowsForm.DAO
             }
         }
 
-        public List<Materia> ObterListaMateriasPorStatus(AlunoMateriasVM materia)
+        public List<Materia> ObterListaMateriasNotasPorStatus(AlunoMateriasVM materia)
         {
             try
             {
@@ -133,7 +138,7 @@ namespace ProjetoWindowsForm.DAO
                 MySqlCommand sql = new MySqlCommand("SELECT materia, N1, N2, N3, N4, media, status, ra_aluno FROM alunos_materias WHERE status = @status", con.con);
                 sql.Parameters.AddWithValue("@status", materia.Status);
 
-                return GetListMaterias(sql);
+                return ObterListaMaterias(sql);
             }
             catch (Exception)
             {
@@ -145,7 +150,7 @@ namespace ProjetoWindowsForm.DAO
             }
         }
 
-        public List<Materia> ObterListaMateriasFixa()
+        public List<Materia> ObterListaMateriasSomenteNome()
         {
             try
             {
@@ -173,8 +178,9 @@ namespace ProjetoWindowsForm.DAO
                 con.FecharConexao();
             }
         }
+        #endregion 
 
-        public List<Materia> GetListMaterias(MySqlCommand sql)
+        public List<Materia> ObterListaMaterias(MySqlCommand sql)
         {
             MySqlDataAdapter da = new MySqlDataAdapter(sql);
             DataTable dt = new DataTable();
@@ -191,7 +197,7 @@ namespace ProjetoWindowsForm.DAO
                 var n4 = Convert.ToDecimal(dr["N4"]);
                 var media = Convert.ToDecimal(dr["media"]);
                 var status = Convert.ToString(dr["status"]);
-                var ra = Convert.ToInt16(dr["ra_aluno"]);
+                var ra = Convert.ToInt32(dr["ra_aluno"]);
                 materiasNotas.Add(new Materia(materia, n1, n2, n3, n4, media, status, ra));
             }
             return materiasNotas;

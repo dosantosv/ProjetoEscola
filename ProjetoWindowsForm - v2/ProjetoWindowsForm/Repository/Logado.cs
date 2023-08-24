@@ -1,4 +1,5 @@
 ﻿using ProjetoWindowsForm.DAO;
+using ProjetoWindowsForm.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace ProjetoWindowsForm.Repository
         public static string Senha { get; set; }    
         public static string Sala { get; set; }
         public static string Materia { get; set; }
+        public static string Permissao { get; set; }
     }
 }

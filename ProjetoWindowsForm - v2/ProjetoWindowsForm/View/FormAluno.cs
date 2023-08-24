@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using ProjetoWindowsForm.Model;
 using ProjetoWindowsForm.Entidades;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace ProjetoWindowsForm.View
 
@@ -22,7 +23,7 @@ namespace ProjetoWindowsForm.View
             try
             {
                 gridAlunos.AutoGenerateColumns = false;
-                gridAlunos.DataSource = model.GetListAlunosAll();
+                gridAlunos.DataSource = model.ObterListGeralAlunos();
             }
             catch (Exception ex)
             {
@@ -39,6 +40,24 @@ namespace ProjetoWindowsForm.View
                 aluno.Sala = cbSala.Text;
                 aluno.Sexo = cbSexo.Text;
                 
+                if(string.IsNullOrEmpty(txtNome.Text))
+                {
+                    MessageBox.Show("O nome não pode estar vázio");
+                    return;
+                }
+
+                if(!string.IsNullOrEmpty(txtRa.Text))
+                {
+                    MessageBox.Show("Esse aluno já existe, selecione Limpar e cadastre um novo aluno caso deseje!");
+                    return;
+                }
+
+                if(string.IsNullOrEmpty(cbSala.Text))
+                {
+                    MessageBox.Show("Não é possível criar um aluno sem selecionar uma sala, crie primeiro um professor para depois criar um aluno!!");
+                    return;
+                }
+
                 model.Cadastrar(aluno);
                 MessageBox.Show("Aluno criado com sucesso!");
             }
@@ -78,7 +97,7 @@ namespace ProjetoWindowsForm.View
                 aluno.Sala = cbSala.Text;
                 aluno.Sexo = cbSexo.Text;
 
-                if (txtNome.Text == "")
+                if (string.IsNullOrEmpty(txtNome.Text))
                 {
                     MessageBox.Show("Não existe nenhum aluno a ser editado!");
                     return;
@@ -111,8 +130,19 @@ namespace ProjetoWindowsForm.View
         }
         private void FormAluno_Load(object sender, EventArgs e)
         {
-            cbSala.DataSource = model.GetListTurmaProfessores();
-            cbSala.ValueMember = "sala";
+            List<Professor> professores = model.Listar<Professor>();
+            List<string> salasUnicas = new List<string>();
+
+            foreach (Professor professor in professores)
+            {
+                string sala = professor.Sala;
+
+                if (!salasUnicas.Contains(sala))
+                {
+                    salasUnicas.Add(sala);
+                }
+            }
+            cbSala.DataSource = salasUnicas;
             cbSala.DisplayMember = "sala";
             cbSexo.SelectedIndex = 0;
             ListarDados();
@@ -151,6 +181,11 @@ namespace ProjetoWindowsForm.View
             if (string.IsNullOrEmpty(txtRa.Text))
             {
                 MessageBox.Show("Selecione na tabela um aluno para editar");
+                return;
+            }
+
+            if (MessageBox.Show("Deseja mesmo editar o Aluno?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
+            {
                 return;
             }
             EditarAluno(aluno);

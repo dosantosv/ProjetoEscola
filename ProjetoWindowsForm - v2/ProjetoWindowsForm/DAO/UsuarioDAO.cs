@@ -2,6 +2,8 @@
 using ProjetoWindowsForm.Entidades;
 using ProjetoWindowsForm.Repository;
 using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace ProjetoWindowsForm.DAO
 {
@@ -10,14 +12,14 @@ namespace ProjetoWindowsForm.DAO
         MySqlCommand sql;
         Conexao con = new Conexao();
 
-        public Diretoria Login(Diretoria dado)
+        public Diretoria Login(Diretoria diretoria)
         {
             try
             {
                 con.AbrirConexao();
                 sql = new MySqlCommand("SELECT * FROM diretoria where usuario = @usuario AND senha = @senha", con.con);
-                sql.Parameters.AddWithValue("@usuario", dado.Usuario);
-                sql.Parameters.AddWithValue("@senha", dado.Senha);
+                sql.Parameters.AddWithValue("@usuario", diretoria.Usuario);
+                sql.Parameters.AddWithValue("@senha", diretoria.Senha);
                 MySqlDataReader dr;
                 dr = sql.ExecuteReader();
 
@@ -25,32 +27,37 @@ namespace ProjetoWindowsForm.DAO
                 {
                     while (dr.Read())
                     {
-                        dado.Usuario = Convert.ToString(dr["usuario"]);
-                        dado.Senha = Convert.ToString(dr["senha"]);
+                        diretoria.Usuario = Convert.ToString(dr["usuario"]);
+                        diretoria.Senha = Convert.ToString(dr["senha"]);
                     }
-                    Logado.Usuario = dado.Usuario;
+                    Logado.Usuario = diretoria.Usuario;
+                    Logado.Permissao = diretoria.Permissao;
                 }
                 else
                 {
-                    dado.Usuario = null;
-                    dado.Senha = null;
+                    diretoria.Usuario = null;
+                    diretoria.Senha = null;
                 }
-                return dado;
+                return diretoria;
             }
             catch (Exception)
             {
                 throw;
             }
+            finally
+            {
+                con.FecharConexao();
+            }
         }
 
-        public Professor LoginProf(Professor dado)
+        public Professor LoginProf(Professor professor)
         {
             try
             {
                 con.AbrirConexao();
                 sql = new MySqlCommand("SELECT * FROM professores where usuario = @usuario AND senha = @senha", con.con);
-                sql.Parameters.AddWithValue("@usuario", dado.Usuario);
-                sql.Parameters.AddWithValue("@senha", dado.Senha);
+                sql.Parameters.AddWithValue("@usuario", professor.Usuario);
+                sql.Parameters.AddWithValue("@senha", professor.Senha);
                 MySqlDataReader dr;
                 dr = sql.ExecuteReader();
 
@@ -58,23 +65,28 @@ namespace ProjetoWindowsForm.DAO
                 {
                     while (dr.Read())
                     {
-                        dado.Usuario = Convert.ToString(dr["usuario"]);
-                        dado.Senha = Convert.ToString(dr["senha"]);
+                        professor.Usuario = Convert.ToString(dr["usuario"]);
+                        professor.Senha = Convert.ToString(dr["senha"]);
                     }
                     Logado.Sala = Convert.ToString(dr["sala"]);
                     Logado.Materia = Convert.ToString(dr["materia"]);
-                    Logado.Usuario = dado.Usuario;
+                    Logado.Usuario = professor.Usuario;
+                    Logado.Permissao = professor.Permissao;
                 }
                 else
                 {
-                    dado.Usuario = null;
-                    dado.Senha = null;
+                    professor.Usuario = null;
+                    professor.Senha = null;
                 }
-                return dado;
+                return professor;
             }
             catch (Exception)
             {
                 throw;
+            }
+            finally
+            {
+                con.FecharConexao();
             }
         }
     }

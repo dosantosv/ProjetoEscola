@@ -45,7 +45,7 @@ namespace ProjetoWindowsForm.View
                 cbStatus.Text == "Todos" &&
                 cbSala.Text == "Todos")
             {
-                dado.Ra = Convert.ToInt32(txtRa.Text);
+                dado.Ra = Convert.ToInt64(txtRa.Text);
                 gridBoletim.DataSource = viewModel.ListaFiltradaPorRa(dado);
                 return;
             }
@@ -85,7 +85,7 @@ namespace ProjetoWindowsForm.View
                 cbStatus.Text == "Todos" &&
                 cbSala.Text == "Todos")
             {
-                dado.Ra = Convert.ToInt16(txtRa.Text);
+                dado.Ra = Convert.ToInt64(txtRa.Text);
                 dado.Nome = txtNome.Text;
                 gridBoletim.DataSource = viewModel.ListaFiltradaPorRaENome(dado);
                 return;
@@ -96,7 +96,7 @@ namespace ProjetoWindowsForm.View
                 !(cbStatus.Text == "Todos") &&
                 cbSala.Text == "Todos")
             {
-                dado.Ra = Convert.ToInt16(txtRa.Text);
+                dado.Ra = Convert.ToInt64(txtRa.Text);
                 dado.Status = cbStatus.Text;
                 gridBoletim.DataSource = viewModel.ListaFiltradaPorRaEStatus(dado);
                 return;
@@ -129,7 +129,7 @@ namespace ProjetoWindowsForm.View
                 !(cbStatus.Text == "Todos") &&
                 !(cbSala.Text == "Todos"))
             {
-                dado.Nome = txtNome.Text;
+                dado.Status = cbStatus.Text;
                 dado.Sala = cbSala.Text;
                 gridBoletim.DataSource = viewModel.ListaFiltradaPorSalaEStatus(dado);
                 return;
@@ -140,7 +140,7 @@ namespace ProjetoWindowsForm.View
                 !(cbStatus.Text == "Todos") &&
                 !(cbSala.Text == "Todos"))
             {
-                dado.Ra = Convert.ToInt16(txtRa.Text);
+                dado.Ra = Convert.ToInt64(txtRa.Text);
                 dado.Nome = txtNome.Text;
                 dado.Status = cbStatus.Text;
                 dado.Sala = cbSala.Text;
@@ -148,15 +148,51 @@ namespace ProjetoWindowsForm.View
                 return;
             }
 
-         
+            if (!string.IsNullOrWhiteSpace(txtRa.Text) &&
+                !string.IsNullOrWhiteSpace(txtNome.Text) &&
+                !(cbStatus.Text == "Todos") &&
+                (cbSala.Text == "Todos"))
+            {
+                dado.Ra = Convert.ToInt64(txtRa.Text);
+                dado.Nome = txtNome.Text;
+                dado.Status = cbStatus.Text;
+                gridBoletim.DataSource = viewModel.ListaFiltradaPorRaNomeEStatus(dado);
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(txtRa.Text) &&
+                !string.IsNullOrWhiteSpace(txtNome.Text) &&
+                (cbStatus.Text == "Todos") &&
+                !(cbSala.Text == "Todos"))
+            {
+                dado.Ra = Convert.ToInt64(txtRa.Text);
+                dado.Nome = txtNome.Text;
+                dado.Sala = cbSala.Text;
+                gridBoletim.DataSource = viewModel.ListaFiltradaPorRaNomeESala(dado);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtRa.Text) &&
+                !string.IsNullOrWhiteSpace(txtNome.Text) &&
+                !(cbStatus.Text == "Todos") &&
+                !(cbSala.Text == "Todos"))
+            {
+                dado.Nome = txtNome.Text;
+                dado.Status = cbStatus.Text;
+                dado.Sala = cbSala.Text;
+                gridBoletim.DataSource = viewModel.ListaFiltradaPorNomeStatusESala(dado);
+                return;
+            }
+
+
+
+
         }
         private void Form1_Load(object sender, EventArgs e)
         {
             cbSala.SelectedIndex = 0;
             cbStatus.SelectedIndex = 0;
             ListarDados();
-
-
         }
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -236,7 +272,7 @@ namespace ProjetoWindowsForm.View
             {
                 e.Handled = true;
             }
-            if (textBox.Text.Length >= 4 && e.KeyChar != '\b')
+            if (textBox.Text.Length >= 9 && e.KeyChar != '\b')
             {
                 e.Handled = true;
             }

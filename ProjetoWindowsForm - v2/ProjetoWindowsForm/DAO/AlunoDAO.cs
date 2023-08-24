@@ -12,25 +12,19 @@ namespace ProjetoWindowsForm.DAO
     {
         MySqlCommand sql, sqlN;
         Conexao con = new Conexao();
+        #region CRUD
 
-        public List<Professor> GetListTurmaProfessores()
+        public void CadastrarAluno(Aluno aluno)
         {
             try
             {
                 con.AbrirConexao();
-                MySqlDataAdapter da = new MySqlDataAdapter("SELECT sala FROM professores", con.con);
-
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                var turmaProfessores = new List<Professor>();
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    var sala = Convert.ToString(dr["sala"]);
-                    turmaProfessores.Add(new Professor(sala));
-                }
-                return turmaProfessores;
+                sql = new MySqlCommand("INSERT INTO alunos(nome, nascimento, sala, sexo) VALUES(@nome, @nascimento, @sala, @sexo)", con.con);
+                sql.Parameters.AddWithValue("@nome", aluno.Nome);
+                sql.Parameters.AddWithValue("@nascimento", aluno.Nascimento);
+                sql.Parameters.AddWithValue("@sala", aluno.Sala);
+                sql.Parameters.AddWithValue("@sexo", aluno.Sexo);
+                sql.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -40,9 +34,79 @@ namespace ProjetoWindowsForm.DAO
             {
                 con.FecharConexao();
             }
-
         }
-        public List<Aluno> GetListAlunosAll()
+
+        public void ExcluirAluno(Aluno aluno)
+        {
+            try
+            {
+                con.AbrirConexao();
+                sqlN = new MySqlCommand("DELETE FROM alunos_materias WHERE ra_aluno = @ra", con.con);
+                sqlN.Parameters.AddWithValue("@ra", aluno.Ra);
+                sqlN.ExecuteNonQuery();
+                sql = new MySqlCommand("DELETE FROM alunos WHERE ra = @ra", con.con);
+                sql.Parameters.AddWithValue("@ra", aluno.Ra);
+                sql.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.FecharConexao();
+            }
+        }
+
+        public void EditarAluno(Aluno aluno)
+        {
+            try
+            {
+                con.AbrirConexao();
+                sql = new MySqlCommand("UPDATE alunos SET nome = @nome, nascimento = @nascimento, sala = @sala, sexo = @sexo WHERE ra = @ra", con.con);
+                sql.Parameters.AddWithValue("@nome", aluno.Nome);
+                sql.Parameters.AddWithValue("@nascimento", aluno.Nascimento);
+                sql.Parameters.AddWithValue("@sala", aluno.Sala);
+                sql.Parameters.AddWithValue("@sexo", aluno.Sexo);
+                sql.Parameters.AddWithValue("@ra", aluno.Ra);
+                sql.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.FecharConexao();
+            }
+        }
+        #endregion
+
+        #region GRID MEDIAS
+        public List<Aluno> ObterListaAlunosPorSalaDeAcordoComProfessorLogado()
+        {
+            try
+            {
+                con.AbrirConexao();
+                MySqlCommand sql = new MySqlCommand("SELECT ra, nome, sala FROM alunos WHERE sala = @sala", con.con);
+                sql.Parameters.AddWithValue("@sala", Logado.Sala);
+
+                return ObterListaAlunos(sql);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.FecharConexao();
+            }
+        }
+        #endregion
+
+        #region GRID ALUNOS
+
+        public List<Aluno> ObterListaTodosAlunos()
         {
             try
             {
@@ -74,73 +138,9 @@ namespace ProjetoWindowsForm.DAO
                 con.FecharConexao();
             }
         }
+        #endregion
 
-        public void CadastrarAluno(Aluno dado)
-        {
-            try
-            {
-                con.AbrirConexao();
-                sql = new MySqlCommand("INSERT INTO alunos(nome, nascimento, sala, sexo) VALUES(@nome, @nascimento, @sala, @sexo)", con.con);
-                sql.Parameters.AddWithValue("@nome", dado.Nome);
-                sql.Parameters.AddWithValue("@nascimento", dado.Nascimento);
-                sql.Parameters.AddWithValue("@sala", dado.Sala);
-                sql.Parameters.AddWithValue("@sexo", dado.Sexo);
-                sql.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-        }
-
-        public void ExcluirAluno(Aluno dado)
-        {
-            try
-            {
-                con.AbrirConexao();
-                sqlN = new MySqlCommand("DELETE FROM alunos_materias WHERE ra_aluno = @ra", con.con);
-                sqlN.Parameters.AddWithValue("@ra", dado.Ra);
-                sqlN.ExecuteNonQuery(); 
-                sql = new MySqlCommand("DELETE FROM alunos WHERE ra = @ra", con.con);
-                sql.Parameters.AddWithValue("@ra", dado.Ra);
-                sql.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-        }
-
-        public void EditarAluno(Aluno dado)
-        {
-            try
-            {
-                con.AbrirConexao();
-                sql = new MySqlCommand("UPDATE alunos SET nome = @nome, nascimento = @nascimento, sala = @sala, sexo = @sexo WHERE ra = @ra", con.con);
-                sql.Parameters.AddWithValue("@nome", dado.Nome);
-                sql.Parameters.AddWithValue("@nascimento", dado.Nascimento);
-                sql.Parameters.AddWithValue("@sala", dado.Sala);
-                sql.Parameters.AddWithValue("@sexo", dado.Sexo);
-                sql.Parameters.AddWithValue("@ra", dado.Ra);
-                sql.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-        }
+        #region FILTERS GRID BOLETIM
 
         public List<Aluno> ObterListaAlunos()
         {
@@ -159,30 +159,6 @@ namespace ProjetoWindowsForm.DAO
                 con.FecharConexao();
             }
         }
-
-        #region MEDIAS
-        public List<Aluno> GetListAlunoPerSalaForGlobalVar()
-        {
-            try
-            {
-                con.AbrirConexao();
-                MySqlCommand sql = new MySqlCommand("SELECT ra, nome, sala FROM alunos WHERE sala = @sala", con.con);
-                sql.Parameters.AddWithValue("@sala", Logado.Sala);
-
-                return ObterListaAlunos(sql);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-        }
-        #endregion
-
-        #region FILTERS BOLETIM
 
         public List<Aluno> ObterListaAlunosPorRa(AlunoMateriasVM aluno)
         {
@@ -294,7 +270,7 @@ namespace ProjetoWindowsForm.DAO
             {
                 con.AbrirConexao();
                 MySqlCommand sql = new MySqlCommand("SELECT ra, nome, sala FROM alunos WHERE ra LIKE @ra AND nome LIKE @nome AND sala = @sala", con.con);
-                sql.Parameters.AddWithValue("@nome", aluno.Ra + "%");
+                sql.Parameters.AddWithValue("@ra", aluno.Ra + "%");
                 sql.Parameters.AddWithValue("@nome", aluno.Nome + "%");
                 sql.Parameters.AddWithValue("@sala", aluno.Sala);
 
@@ -329,6 +305,36 @@ namespace ProjetoWindowsForm.DAO
             return alunos;
         }
         #endregion
+
+        public List<Professor> ObterListaTurmaProfessores()
+        {
+            try
+            {
+                con.AbrirConexao();
+                MySqlDataAdapter da = new MySqlDataAdapter("SELECT sala FROM professores", con.con);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                var turmaProfessores = new List<Professor>();
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    var sala = Convert.ToString(dr["sala"]);
+                    turmaProfessores.Add(new Professor(sala));
+                }
+                return turmaProfessores;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.FecharConexao();
+            }
+
+        }
     }
 }
 

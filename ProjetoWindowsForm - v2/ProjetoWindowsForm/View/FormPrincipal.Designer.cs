@@ -30,6 +30,7 @@ namespace ProjetoWindowsForm
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuSair = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,6 +45,8 @@ namespace ProjetoWindowsForm
             this.btnCalcularMedia = new System.Windows.Forms.PictureBox();
             this.btnProfessores = new System.Windows.Forms.PictureBox();
             this.btnAlunos = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -74,8 +77,8 @@ namespace ProjetoWindowsForm
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(126)))), ((int)(((byte)(182)))));
             this.panel1.Controls.Add(this.panel2);
@@ -168,6 +171,7 @@ namespace ProjetoWindowsForm
             this.btnBoletim.Size = new System.Drawing.Size(83, 82);
             this.btnBoletim.TabIndex = 29;
             this.btnBoletim.TabStop = false;
+            this.toolTip2.SetToolTip(this.btnBoletim, "Área liberada apenas para ADMIN");
             this.btnBoletim.Click += new System.EventHandler(this.btnBoletim_Click);
             // 
             // btnCalcularMedia
@@ -180,6 +184,7 @@ namespace ProjetoWindowsForm
             this.btnCalcularMedia.Size = new System.Drawing.Size(83, 82);
             this.btnCalcularMedia.TabIndex = 28;
             this.btnCalcularMedia.TabStop = false;
+            this.toolTip1.SetToolTip(this.btnCalcularMedia, "Área liberada apenas para Professores");
             this.btnCalcularMedia.Click += new System.EventHandler(this.btnCalcularMedia_Click);
             // 
             // btnProfessores
@@ -192,6 +197,7 @@ namespace ProjetoWindowsForm
             this.btnProfessores.Size = new System.Drawing.Size(80, 82);
             this.btnProfessores.TabIndex = 27;
             this.btnProfessores.TabStop = false;
+            this.toolTip2.SetToolTip(this.btnProfessores, "Área liberada apenas para ADMIN");
             this.btnProfessores.Click += new System.EventHandler(this.btnProfessores_Click);
             // 
             // btnAlunos
@@ -204,6 +210,7 @@ namespace ProjetoWindowsForm
             this.btnAlunos.Size = new System.Drawing.Size(80, 82);
             this.btnAlunos.TabIndex = 26;
             this.btnAlunos.TabStop = false;
+            this.toolTip2.SetToolTip(this.btnAlunos, "Área liberada apenas para ADMIN");
             this.btnAlunos.Click += new System.EventHandler(this.btnAlunos_Click);
             // 
             // FormPrincipal
@@ -215,6 +222,7 @@ namespace ProjetoWindowsForm
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormPrincipal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Principal";
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -245,5 +253,7 @@ namespace ProjetoWindowsForm
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip toolTip2;
     }
 }

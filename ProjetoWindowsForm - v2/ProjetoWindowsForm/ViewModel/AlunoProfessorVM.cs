@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using MySql.Data.MySqlClient;
 using ProjetoWindowsForm.DAO;
 using ProjetoWindowsForm.Entidades;
 
@@ -10,13 +8,12 @@ namespace ProjetoWindowsForm.ViewModel
 {
     public class AlunoProfessorVM
     {
-        Conexao con = new Conexao();
         AlunoDAO daoAluno = new AlunoDAO();
         ProfessorDAO daoProfessor = new ProfessorDAO();
         MateriaDAO daoMateria = new MateriaDAO();
 
         #region ALUNO
-        public int Ra { get; set; }
+        public long Ra { get; set; }
         public string Nome { get; set; }
         public string Sala { get; set; }
         #endregion
@@ -45,7 +42,7 @@ namespace ProjetoWindowsForm.ViewModel
 
         }
 
-        public AlunoProfessorVM(int ra, string nome, string sala, string nomeMateria, string n1, string n2, string n3, string n4, string media, string status)
+        public AlunoProfessorVM(long ra, string nome, string sala, string nomeMateria, string n1, string n2, string n3, string n4, string media, string status)
         {
             Ra = ra;
             Nome = nome;
@@ -71,7 +68,7 @@ namespace ProjetoWindowsForm.ViewModel
             Ra_aluno = ra_aluno;
         }
 
-        public AlunoProfessorVM(int ra, string nome, string sala, string id, string nomeProf, string turmaProf, string materia, string nomeMateria, string n1, string n2, string n3, string n4, string media, string status)
+        public AlunoProfessorVM(long ra, string nome, string sala, string id, string nomeProf, string turmaProf, string materia, string nomeMateria, string n1, string n2, string n3, string n4, string media, string status)
         {
             Ra = ra;
             Nome = nome;
@@ -90,27 +87,9 @@ namespace ProjetoWindowsForm.ViewModel
             Status = status;
         }
 
-        public AlunoProfessorVM(string materia)
-        {
-            Materia = materia;
-        }
+        #region PARA VIEW MODEL
 
-        public AlunoProfessorVM(int ra, string nome, string sala)
-        {
-            Ra = ra;
-            Nome = nome;
-            Sala = sala;
-        }
-        public AlunoProfessorVM(string id, string nomeProf, string turmaProf, string materia)
-        {
-            Id = id;
-            NomeProf = nomeProf;
-            TurmaProf = turmaProf;
-            Materia = materia;
-        }
-
-        #region FOR VM
-        public List<AlunoProfessorVM> GetListAlunoForVm(List<Aluno> alunos)
+        public List<AlunoProfessorVM> ObterListaAlunoParaViewModel(List<Aluno> alunos)
         {
             List<AlunoProfessorVM> alunoVMList = new List<AlunoProfessorVM>();
 
@@ -127,7 +106,7 @@ namespace ProjetoWindowsForm.ViewModel
             return alunoVMList;
         }
 
-        public List<AlunoProfessorVM> GetListMateriaForVm(List<Materia> materias)
+        public List<AlunoProfessorVM> ObterListaMateriaParaViewModel(List<Materia> materias)
         {
             List<AlunoProfessorVM> materiasVmList = new List<AlunoProfessorVM>();
 
@@ -148,7 +127,7 @@ namespace ProjetoWindowsForm.ViewModel
             return materiasVmList;
         }
 
-        public List<AlunoProfessorVM> GetListProfessorForVm(List<Professor> professores)
+        public List<AlunoProfessorVM> ObterListaProfessorParaViewModel(List<Professor> professores)
         {
             List<AlunoProfessorVM> professoresVmList = new List<AlunoProfessorVM>();
 
@@ -166,59 +145,16 @@ namespace ProjetoWindowsForm.ViewModel
         }
         #endregion
 
-        public List<AlunoProfessorVM> GetListAlunos(MySqlCommand sql)
-        {
-            MySqlDataAdapter da = new MySqlDataAdapter(sql);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            var alunos = new List<AlunoProfessorVM>();
-
-            foreach (DataRow dr in dt.Rows)
-            {
-                var ra = Convert.ToInt32(dr["ra"]);
-                var nome = Convert.ToString(dr["nome"]);
-                var sala = Convert.ToString(dr["sala"]);
-                alunos.Add(new AlunoProfessorVM(ra, nome, sala));
-            }
-            return alunos;
-        }
-
-
-
-        public List<AlunoProfessorVM> GetListMaterias(MySqlCommand sql)
-        {
-            MySqlDataAdapter da = new MySqlDataAdapter(sql);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            var materiasNotas = new List<AlunoProfessorVM>();
-
-            foreach (DataRow dr in dt.Rows)
-            {
-                var materia = Convert.ToString(dr["materia"]);
-                var n1 = Convert.ToString(dr["N1"]);
-                var n2 = Convert.ToString(dr["N2"]);
-                var n3 = Convert.ToString(dr["N3"]);
-                var n4 = Convert.ToString(dr["N4"]);
-                var media = Convert.ToString(dr["media"]);
-                var status = Convert.ToString(dr["status"]);
-                var ra_aluno = Convert.ToInt32(dr["ra_aluno"]);
-                materiasNotas.Add(new AlunoProfessorVM(materia, n1, n2, n3, n4, media, status, ra_aluno));
-            }
-            return materiasNotas;
-        }
-
         public List<AlunoProfessorVM> ListMedias()
         {
             try
             {
-                List<Aluno> alunos = daoAluno.GetListAlunoPerSalaForGlobalVar();
-                List<Professor> professores = daoProfessor.GetListProfessorPerMateriaForGlobalVar();
-                List<Materia> materias = daoMateria.GetListMateriasAll();
-                List<AlunoProfessorVM> alunosForVm = GetListAlunoForVm(alunos);
-                List<AlunoProfessorVM> professoresForVm = GetListProfessorForVm(professores);
-                List<AlunoProfessorVM> materiasForVm = GetListMateriaForVm(materias);
+                List<Aluno> alunos = daoAluno.ObterListaAlunosPorSalaDeAcordoComProfessorLogado();
+                List<Professor> professores = daoProfessor.ObterListaAlunosPorMateriaDeAcordoComProfessorLogado();
+                List<Materia> materias = daoMateria.ObterListaMateriasNotas();
+                List<AlunoProfessorVM> alunosForVm = ObterListaAlunoParaViewModel(alunos);
+                List<AlunoProfessorVM> professoresForVm = ObterListaProfessorParaViewModel(professores);
+                List<AlunoProfessorVM> materiasForVm = ObterListaMateriaParaViewModel(materias);
                 List<AlunoProfessorVM> dadosCompletosList = new List<AlunoProfessorVM>();
 
                 foreach (var aluno in alunosForVm)

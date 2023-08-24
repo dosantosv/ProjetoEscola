@@ -1,14 +1,16 @@
-﻿using System;
+﻿using ProjetoWindowsForm.Interface;
+using System;
 
 namespace ProjetoWindowsForm.Entidades
 {
-    public class Professor : Pessoa
+    public class Professor : Pessoa, IPermissao
     {
         public int Id { get; set; }
         public string Sala { get; set; }
         public string Materia { get; set; }
         public string Usuario { get; set; }
         public string Senha { get; set; }
+        public string Permissao => "professor";
 
         public Professor()
         {
