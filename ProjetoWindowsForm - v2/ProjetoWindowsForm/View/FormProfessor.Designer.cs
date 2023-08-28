@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -168,7 +169,6 @@
             this.label11.TabIndex = 79;
             this.label11.Text = "INFORMAÇÕES DE USUÁRIO";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
             // label10
             // 
@@ -203,7 +203,6 @@
             this.label8.Size = new System.Drawing.Size(68, 18);
             this.label8.TabIndex = 76;
             this.label8.Text = "Usuário :";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // label7
             // 
@@ -269,6 +268,7 @@
             this.cbMateria.Name = "cbMateria";
             this.cbMateria.Size = new System.Drawing.Size(444, 24);
             this.cbMateria.TabIndex = 69;
+            this.cbMateria.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbMateria_KeyDown);
             this.cbMateria.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbMateria_KeyPress);
             // 
             // txtSenha
@@ -305,6 +305,7 @@
             this.cbSexo.Name = "cbSexo";
             this.cbSexo.Size = new System.Drawing.Size(444, 24);
             this.cbSexo.TabIndex = 56;
+            this.cbSexo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbSexo_KeyDown);
             this.cbSexo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbSexo_KeyPress);
             // 
             // gridProfessores
@@ -315,6 +316,14 @@
             this.gridProfessores.AllowUserToResizeRows = false;
             this.gridProfessores.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gridProfessores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Bookman Old Style", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridProfessores.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gridProfessores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridProfessores.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -331,6 +340,7 @@
             this.gridProfessores.Margin = new System.Windows.Forms.Padding(4);
             this.gridProfessores.Name = "gridProfessores";
             this.gridProfessores.ReadOnly = true;
+            this.gridProfessores.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gridProfessores.Size = new System.Drawing.Size(1050, 177);
             this.gridProfessores.TabIndex = 54;
             this.gridProfessores.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridProfessores_CellClick);
@@ -400,6 +410,7 @@
             this.cbSala.Name = "cbSala";
             this.cbSala.Size = new System.Drawing.Size(444, 24);
             this.cbSala.TabIndex = 46;
+            this.cbSala.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbSala_KeyDown);
             this.cbSala.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbSala_KeyPress);
             // 
             // dtNascimento

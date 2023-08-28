@@ -16,10 +16,10 @@ namespace ProjetoWindowsForm.Model
             {
                 dao.CadastrarNotas(dado, dados);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
+                throw;
             }
         }
 
@@ -29,10 +29,10 @@ namespace ProjetoWindowsForm.Model
             {
                 dao.EditarNotas(dado, dados);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
+                throw;
             }
         }
 
@@ -42,10 +42,10 @@ namespace ProjetoWindowsForm.Model
             {
                 dao.DeletarNotas(dados);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
+                throw;
             }
         }
 

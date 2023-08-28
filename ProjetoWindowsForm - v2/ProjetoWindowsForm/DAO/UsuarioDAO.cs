@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using ProjetoWindowsForm.Entidades;
+using ProjetoWindowsForm.Entities;
 using ProjetoWindowsForm.Repository;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace ProjetoWindowsForm.DAO
         MySqlCommand sql;
         Conexao con = new Conexao();
 
-        public Diretoria Login(Diretoria diretoria)
+        public Usuario LoginDiretoria(Diretoria diretoria)
         {
             try
             {
@@ -30,8 +31,8 @@ namespace ProjetoWindowsForm.DAO
                         diretoria.Usuario = Convert.ToString(dr["usuario"]);
                         diretoria.Senha = Convert.ToString(dr["senha"]);
                     }
-                    Logado.Usuario = diretoria.Usuario;
-                    Logado.Permissao = diretoria.Permissao;
+                    Login.Usuario = diretoria.Usuario;
+                    Login.Permissao = diretoria.Permissao;
                 }
                 else
                 {
@@ -50,7 +51,7 @@ namespace ProjetoWindowsForm.DAO
             }
         }
 
-        public Professor LoginProf(Professor professor)
+        public Usuario LoginProf(Professor professor)
         {
             try
             {
@@ -68,10 +69,10 @@ namespace ProjetoWindowsForm.DAO
                         professor.Usuario = Convert.ToString(dr["usuario"]);
                         professor.Senha = Convert.ToString(dr["senha"]);
                     }
-                    Logado.Sala = Convert.ToString(dr["sala"]);
-                    Logado.Materia = Convert.ToString(dr["materia"]);
-                    Logado.Usuario = professor.Usuario;
-                    Logado.Permissao = professor.Permissao;
+                    Login.Sala = Convert.ToString(dr["sala"]);
+                    Login.Materia = Convert.ToString(dr["materia"]);
+                    Login.Usuario = professor.Usuario;
+                    Login.Permissao = professor.Permissao;
                 }
                 else
                 {

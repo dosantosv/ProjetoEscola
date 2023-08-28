@@ -31,7 +31,6 @@ namespace ProjetoWindowsForm.DAO
             }
             catch (Exception)
             {
-
                 throw;
             }
             finally

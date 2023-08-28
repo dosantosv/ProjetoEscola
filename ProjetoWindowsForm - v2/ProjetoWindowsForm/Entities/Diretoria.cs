@@ -3,7 +3,7 @@ using ProjetoWindowsForm.Interface;
 
 namespace ProjetoWindowsForm.Entidades
 {
-    public class Diretoria : IPermissao
+    public class Diretoria : Pessoa, IPermissao
     {
         public string Usuario { get; set; }
         public string Senha { get; set; }

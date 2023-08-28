@@ -83,13 +83,13 @@ namespace ProjetoWindowsForm.DAO
         #endregion
 
         #region GRID MEDIAS
-        public List<Aluno> ObterListaAlunosPorSalaDeAcordoComProfessorLogado()
+        public List<Aluno> ObterListaAlunosPorSalaDeAcordoComProfessorLogado(Professor professor)
         {
             try
             {
                 con.AbrirConexao();
                 MySqlCommand sql = new MySqlCommand("SELECT ra, nome, sala FROM alunos WHERE sala = @sala", con.con);
-                sql.Parameters.AddWithValue("@sala", Logado.Sala);
+                sql.Parameters.AddWithValue("@sala", professor.Sala);
 
                 return ObterListaAlunos(sql);
             }
@@ -305,36 +305,7 @@ namespace ProjetoWindowsForm.DAO
             return alunos;
         }
         #endregion
-
-        public List<Professor> ObterListaTurmaProfessores()
-        {
-            try
-            {
-                con.AbrirConexao();
-                MySqlDataAdapter da = new MySqlDataAdapter("SELECT sala FROM professores", con.con);
-
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                var turmaProfessores = new List<Professor>();
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    var sala = Convert.ToString(dr["sala"]);
-                    turmaProfessores.Add(new Professor(sala));
-                }
-                return turmaProfessores;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-
-        }
     }
 }
+
 

@@ -364,6 +364,7 @@
             this.gridMedias.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gridMedias.Location = new System.Drawing.Point(79, 120);
             this.gridMedias.Name = "gridMedias";
+            this.gridMedias.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gridMedias.Size = new System.Drawing.Size(846, 145);
             this.gridMedias.TabIndex = 77;
             this.gridMedias.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridMedias_CellClick);

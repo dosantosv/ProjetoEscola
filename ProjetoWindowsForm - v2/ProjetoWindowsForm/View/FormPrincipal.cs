@@ -18,121 +18,229 @@ namespace ProjetoWindowsForm
             InitializeComponent();
         }
 
-        public void Login(Diretoria diretoria)
+        public void LoginDiretoria(Diretoria diretoria)
         {
-             if (diretoria.Permissao == Logado.Permissao)
+            try
             {
-                LoginDiretoria();
+                if (diretoria.Permissao == Login.Permissao)
+                {
+                    LoginDiretoria();
+                }
+                else
+                {
+                    LoginProfessor();
+                }
             }
-            else
+            catch (Exception)
             {
-                LoginProfessor();
+
+                throw;
             }
         }
 
         public void LoginProfessor()
         {
-            btnAlunos.Click -= btnAlunos_Click;
-            btnAlunos.Cursor = Cursors.No;
-            btnProfessores.Click -= btnProfessores_Click;
-            btnProfessores.Cursor = Cursors.No;
-            btnBoletim.Click -= btnBoletim_Click;
-            btnBoletim.Cursor = Cursors.No;
-            btnCalcularMedia.Enabled = true;
-            toolTip1.Active = false;
-            toolTip2.Active = true;
-            btnCalcularMedia.Cursor = Cursors.Hand;
+            try
+            {
+                btnAlunos.Click -= btnAlunos_Click;
+                btnAlunos.Cursor = Cursors.No;
+                btnProfessores.Click -= btnProfessores_Click;
+                btnProfessores.Cursor = Cursors.No;
+                btnBoletim.Click -= btnBoletim_Click;
+                btnBoletim.Cursor = Cursors.No;
+                btnCalcularMedia.Enabled = true;
+                toolTip1.Active = false;
+                toolTip2.Active = true;
+                btnCalcularMedia.Cursor = Cursors.Hand;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
 
         public void LoginDiretoria()
         {
-            btnAlunos.Cursor = Cursors.Hand;
-            btnProfessores.Cursor = Cursors.Hand;
-            btnBoletim.Cursor = Cursors.Hand;
-            btnCalcularMedia.Cursor = Cursors.No;
-            toolTip1.Active = true;
-            toolTip2.Active = false;
-            btnCalcularMedia.Click -= btnCalcularMedia_Click;
+            try
+            {
+                btnAlunos.Cursor = Cursors.Hand;
+                btnProfessores.Cursor = Cursors.Hand;
+                btnBoletim.Cursor = Cursors.Hand;
+                btnCalcularMedia.Cursor = Cursors.No;
+                toolTip1.Active = true;
+                toolTip2.Active = false;
+                btnCalcularMedia.Click -= btnCalcularMedia_Click;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
  
 
         private void btnAlunos_Click(object sender, EventArgs e)
         {
-            this.Close();
-            Thread alunos;
-            alunos = new Thread(AbrirAlunos);
-            alunos.SetApartmentState(ApartmentState.STA);
-            alunos.Start();
+            try
+            {
+                this.Close();
+                Thread alunos;
+                alunos = new Thread(AbrirAlunos);
+                alunos.SetApartmentState(ApartmentState.STA);
+                alunos.Start();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void btnProfessores_Click(object sender, EventArgs e)
         {
-            this.Close();
-            Thread professores;
-            professores = new Thread(AbrirProfessores);
-            professores.SetApartmentState(ApartmentState.MTA);
-            professores.Start();
-            
+            try
+            {
+                this.Close();
+                Thread professores;
+                professores = new Thread(AbrirProfessores);
+                professores.SetApartmentState(ApartmentState.MTA);
+                professores.Start();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }  
         }
 
         private void menuSair_Click(object sender, EventArgs e)
         {
-            this.Close();
-            Thread login;
-            login = new Thread(abrirJanela);
-            login.SetApartmentState(ApartmentState.MTA);
-            login.Start();
-            
+            try
+            {
+                this.Close();
+                Thread login;
+                login = new Thread(abrirJanela);
+                login.SetApartmentState(ApartmentState.MTA);
+                login.Start();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         private void AbrirAlunos()
         {
-            Application.Run(new FormAluno());
+            try
+            {
+                Application.Run(new FormAluno());
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void btnCalcularMedia_Click(object sender, EventArgs e)
         {
-            this.Close();
-            Thread calcular;
-            calcular = new Thread(AbrirCalcular);
-            calcular.SetApartmentState(ApartmentState.MTA);
-            calcular.Start();
-            
+            try
+            {
+                this.Close();
+                Thread calcular;
+                calcular = new Thread(AbrirCalcular);
+                calcular.SetApartmentState(ApartmentState.MTA);
+                calcular.Start();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }   
         }
 
         private void btnBoletim_Click(object sender, EventArgs e)
         {
-            this.Close();
-            Thread boletim;
-            boletim = new Thread(AbrirBoletim);
-            boletim.SetApartmentState (ApartmentState.MTA);
-            boletim.Start();
-            
+            try
+            {
+                this.Close();
+                Thread boletim;
+                boletim = new Thread(AbrirBoletim);
+                boletim.SetApartmentState(ApartmentState.MTA);
+                boletim.Start();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }   
         }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-            Login(diretoria);
+            try
+            {
+                LoginDiretoria(diretoria);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
        }
 
         private void AbrirBoletim()
         {
-            Application.Run(new FormBoletim());
+            try
+            {
+                Application.Run(new FormBoletim());
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void AbrirCalcular()
         {
-            Application.Run(new FormCalcularMedia());
+            try
+            {
+                Application.Run(new FormCalcularMedia());
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void AbrirProfessores()
         {
-            Application.Run(new FormProfessor());
+            try
+            {
+                Application.Run(new FormProfessor());
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         private void abrirJanela(object obj)
         {
-            Application.Run(new FormLogin());
+            try
+            {
+                Application.Run(new FormLogin());
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

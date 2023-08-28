@@ -15,9 +15,9 @@ namespace ProjetoWindowsForm.Model
             {
                 return dao.Listar();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
     }

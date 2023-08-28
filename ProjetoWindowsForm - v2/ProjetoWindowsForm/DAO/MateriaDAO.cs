@@ -73,7 +73,7 @@ namespace ProjetoWindowsForm.DAO
                 con.AbrirConexao();
                 sql = new MySqlCommand("DELETE FROM alunos_materias WHERE ra_aluno = @ra AND materia = @materia", con.con);
                 sql.Parameters.AddWithValue("@ra", dados.Ra);
-                sql.Parameters.AddWithValue("@materia", Logado.Materia);
+                sql.Parameters.AddWithValue("@materia", Login.Materia);
                 sql.ExecuteNonQuery();
             }
             catch (Exception)

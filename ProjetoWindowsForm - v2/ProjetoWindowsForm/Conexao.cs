@@ -17,10 +17,10 @@ namespace ProjetoWindowsForm
                 con = new MySqlConnection(conexao);
                 con.Open();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
+                throw;
             }
         }
         public void FecharConexao()
@@ -30,10 +30,10 @@ namespace ProjetoWindowsForm
                 con = new MySqlConnection(conexao);
                 con.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
+                throw;
             }
         }
     }

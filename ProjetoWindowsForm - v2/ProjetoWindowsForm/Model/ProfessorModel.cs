@@ -24,16 +24,28 @@ namespace ProjetoWindowsForm.Model
             
         }
 
+        public List<Professor> ObterListaTurmaProfessores()
+        {
+            try
+            {
+                return dao.ObterListaTurmaProfessores();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public void Cadastrar(Pessoa pessoa)
         {
             try
             {
                 dao.CadastrarProfessor((Professor)pessoa);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
+                throw;
             }
         }
 
@@ -43,9 +55,9 @@ namespace ProjetoWindowsForm.Model
             {
                 dao.EditarProfessor((Professor)pessoa);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -55,9 +67,9 @@ namespace ProjetoWindowsForm.Model
             {
                 dao.ExcluirProfessor((Professor)pessoa);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
     }

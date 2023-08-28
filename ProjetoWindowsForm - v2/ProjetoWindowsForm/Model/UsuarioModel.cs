@@ -3,6 +3,7 @@ using System;
 using ProjetoWindowsForm.Entidades;
 using System.Collections.Generic;
 using ProjetoWindowsForm.Interface;
+using ProjetoWindowsForm.Entities;
 
 namespace ProjetoWindowsForm.Model
 {
@@ -11,29 +12,29 @@ namespace ProjetoWindowsForm.Model
         UsuarioDAO dao = new UsuarioDAO();
 
 
-        public Diretoria Login(Diretoria admin)
+        public Usuario LoginDiretoria(Diretoria admin)
         {
             try
             {
-                return dao.Login(admin);
+                return dao.LoginDiretoria(admin);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
+                throw;
             }
         }
 
-        public Professor LoginProf(Professor professor)
+        public Usuario LoginProf(Professor professor)
         {
             try
             {
                 return dao.LoginProf(professor);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
+                throw;
             }
         }
     }

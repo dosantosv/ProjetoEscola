@@ -4,6 +4,7 @@ using ProjetoWindowsForm.Model;
 using ProjetoWindowsForm.Entidades;
 using System.Threading;
 using ProjetoWindowsForm.ViewModel;
+using ProjetoWindowsForm.Service;
 
 namespace ProjetoWindowsForm.View
 {
@@ -12,36 +13,25 @@ namespace ProjetoWindowsForm.View
         Materia dado = new Materia();
         AlunoProfessorVM viewModel = new AlunoProfessorVM();
         MateriaModel materiaModel = new MateriaModel();
+        Professor professor = new Professor();
+        CalcularMedia service = new CalcularMedia();
 
         public FormCalcularMedia()
         {
             InitializeComponent();
         }
-        public void LogicaMedia(Materia dado, AlunoProfessorVM dados)
+        public void ObterNotaMedia(Materia notas, AlunoProfessorVM dados)
         {
             try
             {
-                decimal media = Convert.ToDecimal(dado.Notas[0] + dado.Notas[1] + dado.Notas[2] + dado.Notas[3]) / 4;
 
-                dado.Media = media;
-                if (dado.Media >= 7 && dado.Media <= 10)
-                {
-                    dado.Status = "Aprovado";
-                }
-                else if (dado.Media >= 0 && dado.Media <= 7)
-                {
-                    dado.Status = "Reprovado";
-                }
-                else
-                {
-                    dado.Status = "Notas não informadas!";
-                }
+                service.ObterNotasEStatusMateria(notas);
 
-                lblMedia.Text = $"{dado.Media:F2}";
-                txtN1.Text = $"{dado.Notas[0]:F2}";
-                txtN2.Text = $"{dado.Notas[1]:F2}";
-                txtN3.Text = $"{dado.Notas[2]:F2}";
-                txtN4.Text = $"{dado.Notas[3]:F2}";
+                lblMedia.Text = $"{notas.Media:F2}";
+                txtN1.Text = $"{notas.Notas[0]:F2}";
+                txtN2.Text = $"{notas.Notas[1]:F2}";
+                txtN3.Text = $"{notas.Notas[2]:F2}";
+                txtN4.Text = $"{notas.Notas[3]:F2}";
             }
             catch (Exception)
             {
@@ -84,7 +74,7 @@ namespace ProjetoWindowsForm.View
                 }
 
 
-                LogicaMedia(dado, dados);
+                ObterNotaMedia(dado, dados);
 
                 materiaModel.CadastrarNotas(dado, dados);
                 MessageBox.Show("Notas Calculadas com sucesso!");
@@ -126,7 +116,7 @@ namespace ProjetoWindowsForm.View
                     return;
                 }
 
-                LogicaMedia(dado, dados);
+                ObterNotaMedia(dado, dados);
 
 
 
@@ -163,7 +153,7 @@ namespace ProjetoWindowsForm.View
             try
             {
                 gridMedias.AutoGenerateColumns = false;
-                gridMedias.DataSource = viewModel.ListMedias();
+                gridMedias.DataSource = viewModel.ListMedias(professor);
             }
             catch (Exception)
             {
@@ -172,24 +162,40 @@ namespace ProjetoWindowsForm.View
         }
         private void FormCalcularMedia_Load(object sender, EventArgs e)
         {
-            ListarDados();
+            try
+            {
+                ListarDados();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public void LimparDados()
         {
-            txtRa.Text = "";
-            txtId.Text = "";
-            lblNomeAluno.Text = "";
-            lblTurmaAluno.Text = "";
-            lblMateriaAluno.Text = "";
-            lblNomeProf.Text = "";
-            lblTurmaProf.Text = "";
-            lblMateriaProf.Text = "";
-            txtN1.Text = "";
-            txtN2.Text = "";
-            txtN3.Text = "";
-            txtN4.Text = "";
-            lblMedia.Text = "";
+            try
+            {
+                txtRa.Text = "";
+                txtId.Text = "";
+                lblNomeAluno.Text = "";
+                lblTurmaAluno.Text = "";
+                lblMateriaAluno.Text = "";
+                lblNomeProf.Text = "";
+                lblTurmaProf.Text = "";
+                lblMateriaProf.Text = "";
+                txtN1.Text = "";
+                txtN2.Text = "";
+                txtN3.Text = "";
+                txtN4.Text = "";
+                lblMedia.Text = "";
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void gridMedias_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -211,93 +217,147 @@ namespace ProjetoWindowsForm.View
 
         private void btnCalcular_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtRa.Text))
+            try
             {
-                MessageBox.Show("Selecione na tabela um aluno para assim poder calcular suas notas!");
-                return;
-            }
+                if (string.IsNullOrEmpty(txtRa.Text))
+                {
+                    MessageBox.Show("Selecione na tabela um aluno para assim poder calcular suas notas!");
+                    return;
+                }
 
-            if (!string.IsNullOrEmpty(lblMedia.Text))
+                if (!string.IsNullOrEmpty(lblMedia.Text))
+                {
+                    MessageBox.Show("Impossível calcular novamente a nota desse aluno, caso queira editar, selecione a opção EDITAR!");
+                    return;
+                }
+
+                CalcularMedia(dado, viewModel);
+                ListarDados();
+            }
+            catch (Exception)
             {
-                MessageBox.Show("Impossível calcular novamente a nota desse aluno, caso queira editar, selecione a opção EDITAR!");
-                return;
-            }
 
-            CalcularMedia(dado, viewModel);
-            ListarDados();
+                throw;
+            }
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtRa.Text))
+            try
             {
-                MessageBox.Show("Selecione na tabela um aluno para assim poder editar suas notas!");
-                return;
-            }
+                if (string.IsNullOrEmpty(txtRa.Text))
+                {
+                    MessageBox.Show("Selecione na tabela um aluno para assim poder editar suas notas!");
+                    return;
+                }
 
-            EditarNotas(dado, viewModel);
-            ListarDados();
-            LimparDados();
+                EditarNotas(dado, viewModel);
+                ListarDados();
+                LimparDados();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-
-            if (string.IsNullOrEmpty(txtRa.Text))
+            try
             {
-                MessageBox.Show("Selecione na tabela um aluno para assim poder excluir suas notas!");
-                return;
-            }
+                if (string.IsNullOrEmpty(txtRa.Text))
+                {
+                    MessageBox.Show("Selecione na tabela um aluno para assim poder excluir suas notas!");
+                    return;
+                }
 
-            if (MessageBox.Show("Deseja mesmo excluir as notas?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
-            {
-                return;
+                if (MessageBox.Show("Deseja mesmo excluir as notas?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                {
+                    return;
+                }
+                DeletarNotas(viewModel);
+                ListarDados();
+                LimparDados();
             }
-            DeletarNotas(viewModel);
-            ListarDados();
-            LimparDados();
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void SairLogin(object obj)
         {
-            Application.Run(new FormLogin());
+            try
+            {
+                Application.Run(new FormLogin());
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void Voltar(object obj)
         {
-            Application.Run(new FormPrincipal());
+            try
+            {
+                Application.Run(new FormPrincipal());
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void voltarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
-            Thread t2;
-            t2 = new Thread(Voltar);
-            t2.SetApartmentState(ApartmentState.MTA);
-            t2.Start();
+            try
+            {
+                this.Close();
+                Thread t2;
+                t2 = new Thread(Voltar);
+                t2.SetApartmentState(ApartmentState.MTA);
+                t2.Start();
 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void txtN1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
-
-            if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)8)
+            try
             {
-                if (textBox.Text.Length < 4 || e.KeyChar == (char)8)
+                TextBox textBox = (TextBox)sender;
+
+                if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)8)
                 {
-                    if (e.KeyChar == ',' && textBox.Text.Contains(","))
+                    if (textBox.Text.Length < 4 || e.KeyChar == (char)8)
                     {
-                        e.Handled = true;
+                        if (e.KeyChar == ',' && textBox.Text.Contains(","))
+                        {
+                            e.Handled = true;
+                        }
+                        else
+                        {
+                            e.Handled = false;
+
+                            if (e.KeyChar == ',' && textBox.Text.Length == 0)
+                            {
+                                textBox.Text = "0,";
+                                textBox.SelectionStart = textBox.Text.Length;
+                            }
+                        }
                     }
                     else
                     {
-                        e.Handled = false;
-
-                        if (e.KeyChar == ',' && textBox.Text.Length == 0)
-                        {
-                            textBox.Text = "0,";
-                            textBox.SelectionStart = textBox.Text.Length;
-                        }
+                        e.Handled = true;
                     }
                 }
                 else
@@ -305,33 +365,41 @@ namespace ProjetoWindowsForm.View
                     e.Handled = true;
                 }
             }
-            else
+            catch (Exception)
             {
-                e.Handled = true;
+
+                throw;
             }
         }
 
         private void txtN2_KeyPress(object sender, KeyPressEventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
-
-            if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)8)
+            try
             {
-                if (textBox.Text.Length < 4 || e.KeyChar == (char)8)
+                TextBox textBox = (TextBox)sender;
+
+                if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)8)
                 {
-                    if (e.KeyChar == ',' && textBox.Text.Contains(","))
+                    if (textBox.Text.Length < 4 || e.KeyChar == (char)8)
                     {
-                        e.Handled = true;
+                        if (e.KeyChar == ',' && textBox.Text.Contains(","))
+                        {
+                            e.Handled = true;
+                        }
+                        else
+                        {
+                            e.Handled = false;
+
+                            if (e.KeyChar == ',' && textBox.Text.Length == 0)
+                            {
+                                textBox.Text = "0,";
+                                textBox.SelectionStart = textBox.Text.Length;
+                            }
+                        }
                     }
                     else
                     {
-                        e.Handled = false;
-
-                        if (e.KeyChar == ',' && textBox.Text.Length == 0)
-                        {
-                            textBox.Text = "0,";
-                            textBox.SelectionStart = textBox.Text.Length;
-                        }
+                        e.Handled = true;
                     }
                 }
                 else
@@ -339,33 +407,41 @@ namespace ProjetoWindowsForm.View
                     e.Handled = true;
                 }
             }
-            else
+            catch (Exception)
             {
-                e.Handled = true;
+
+                throw;
             }
         }
 
         private void txtN3_KeyPress(object sender, KeyPressEventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
-
-            if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)8)
+            try
             {
-                if (textBox.Text.Length < 4 || e.KeyChar == (char)8)
+                TextBox textBox = (TextBox)sender;
+
+                if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)8)
                 {
-                    if (e.KeyChar == ',' && textBox.Text.Contains(","))
+                    if (textBox.Text.Length < 4 || e.KeyChar == (char)8)
                     {
-                        e.Handled = true;
+                        if (e.KeyChar == ',' && textBox.Text.Contains(","))
+                        {
+                            e.Handled = true;
+                        }
+                        else
+                        {
+                            e.Handled = false;
+
+                            if (e.KeyChar == ',' && textBox.Text.Length == 0)
+                            {
+                                textBox.Text = "0,";
+                                textBox.SelectionStart = textBox.Text.Length;
+                            }
+                        }
                     }
                     else
                     {
-                        e.Handled = false;
-
-                        if (e.KeyChar == ',' && textBox.Text.Length == 0)
-                        {
-                            textBox.Text = "0,";
-                            textBox.SelectionStart = textBox.Text.Length;
-                        }
+                        e.Handled = true;
                     }
                 }
                 else
@@ -373,33 +449,41 @@ namespace ProjetoWindowsForm.View
                     e.Handled = true;
                 }
             }
-            else
+            catch (Exception)
             {
-                e.Handled = true;
+
+                throw;
             }
         }
 
         private void txtN4_KeyPress(object sender, KeyPressEventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
-
-            if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)8)
+            try
             {
-                if (textBox.Text.Length < 4 || e.KeyChar == (char)8)
+                TextBox textBox = (TextBox)sender;
+
+                if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)8)
                 {
-                    if (e.KeyChar == ',' && textBox.Text.Contains(","))
+                    if (textBox.Text.Length < 4 || e.KeyChar == (char)8)
                     {
-                        e.Handled = true;
+                        if (e.KeyChar == ',' && textBox.Text.Contains(","))
+                        {
+                            e.Handled = true;
+                        }
+                        else
+                        {
+                            e.Handled = false;
+
+                            if (e.KeyChar == ',' && textBox.Text.Length == 0)
+                            {
+                                textBox.Text = "0,";
+                                textBox.SelectionStart = textBox.Text.Length;
+                            }
+                        }
                     }
                     else
                     {
-                        e.Handled = false;
-
-                        if (e.KeyChar == ',' && textBox.Text.Length == 0)
-                        {
-                            textBox.Text = "0,";
-                            textBox.SelectionStart = textBox.Text.Length;
-                        }
+                        e.Handled = true;
                     }
                 }
                 else
@@ -407,19 +491,28 @@ namespace ProjetoWindowsForm.View
                     e.Handled = true;
                 }
             }
-            else
+            catch (Exception)
             {
-                e.Handled = true;
+
+                throw;
             }
         }
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
-            Thread t1;
-            t1 = new Thread(SairLogin);
-            t1.SetApartmentState(ApartmentState.MTA);
-            t1.Start();
+            try
+            {
+                this.Close();
+                Thread t1;
+                t1 = new Thread(SairLogin);
+                t1.SetApartmentState(ApartmentState.MTA);
+                t1.Start();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

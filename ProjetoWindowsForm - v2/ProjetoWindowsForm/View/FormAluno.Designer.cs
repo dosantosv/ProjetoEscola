@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblRa = new System.Windows.Forms.Label();
             this.txtRa = new System.Windows.Forms.TextBox();
             this.txtNome = new System.Windows.Forms.TextBox();
@@ -118,6 +119,7 @@
             this.cbSala.Name = "cbSala";
             this.cbSala.Size = new System.Drawing.Size(249, 23);
             this.cbSala.TabIndex = 42;
+            this.cbSala.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbSala_KeyDown);
             this.cbSala.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbSala_KeyPress);
             // 
             // cbSexo
@@ -132,6 +134,7 @@
             this.cbSexo.Name = "cbSexo";
             this.cbSexo.Size = new System.Drawing.Size(249, 23);
             this.cbSexo.TabIndex = 49;
+            this.cbSexo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbSexo_KeyDown);
             this.cbSexo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbSexo_KeyPress);
             // 
             // gridAlunos
@@ -142,6 +145,14 @@
             this.gridAlunos.AllowUserToResizeRows = false;
             this.gridAlunos.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gridAlunos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridAlunos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gridAlunos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridAlunos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ra,
@@ -154,6 +165,7 @@
             this.gridAlunos.Location = new System.Drawing.Point(74, 370);
             this.gridAlunos.Name = "gridAlunos";
             this.gridAlunos.ReadOnly = true;
+            this.gridAlunos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gridAlunos.Size = new System.Drawing.Size(749, 183);
             this.gridAlunos.TabIndex = 52;
             this.gridAlunos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridAlunos_CellClick);

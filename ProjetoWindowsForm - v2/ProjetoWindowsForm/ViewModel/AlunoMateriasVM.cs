@@ -11,6 +11,7 @@ namespace ProjetoWindowsForm.ViewModel
     {
         AlunoDAO daoAluno = new AlunoDAO();
         MateriaDAO daoMateria = new MateriaDAO();
+
         #region ALUNO
         public long Ra { get; set; }
         public string Nome { get; set; }
@@ -51,96 +52,6 @@ namespace ProjetoWindowsForm.ViewModel
             Media = media;
             Status = status;
         }
-
-        #region PARA VIEW MODEL
-
-        public List<AlunoMateriasVM> ObterListaMateriasParaViewModel(List<AlunoMateriasVM> materias, List<AlunoMateriasVM> dadosCompletosList)
-        {
-
-                foreach (var materia in materias)
-                {
-                    var dadosCompletos = new AlunoMateriasVM(
-                        materia.NomeMateria
-                    );
-
-                    dadosCompletosList.Add(dadosCompletos);
-                }
-            
-
-            return dadosCompletosList;
-        }
-
-        public List<AlunoMateriasVM> ObterListaAlunoParaViewModel(List<Aluno> alunos)
-        {
-            List<AlunoMateriasVM> alunoMateriasVMList = new List<AlunoMateriasVM>();
-
-            foreach (Aluno aluno in alunos)
-            {
-                AlunoMateriasVM alunoMateriasVM = new AlunoMateriasVM();
-                alunoMateriasVM.Ra = aluno.Ra;
-                alunoMateriasVM.Nome = aluno.Nome;
-                alunoMateriasVM.Sala = aluno.Sala;
-
-                alunoMateriasVMList.Add(alunoMateriasVM);
-            }
-
-            return alunoMateriasVMList;
-        }
-
-        public List<AlunoMateriasVM> ObterListaMateriaParaViewModel(List<Materia> materias)
-        {
-            List<AlunoMateriasVM> materiasVmList = new List<AlunoMateriasVM>();
-
-            foreach (Materia materia in materias)
-            {
-                AlunoMateriasVM materiasVM = new AlunoMateriasVM();
-                materiasVM.NomeMateria = materia.NomeMateria;
-                materiasVM.N1 = Convert.ToString(materia.Notas[0]);
-                materiasVM.N2 = Convert.ToString(materia.Notas[1]);
-                materiasVM.N3 = Convert.ToString(materia.Notas[2]);
-                materiasVM.N4 = Convert.ToString(materia.Notas[3]);
-                materiasVM.Media = Convert.ToString(materia.Media);
-                materiasVM.Status = materia.Status;
-                materiasVM.Ra_aluno = materia.Ra;
-                materiasVmList.Add(materiasVM);
-            }
-
-            return materiasVmList;
-        }
-        #endregion
-
-        #region CB MATEARIA
-        public List<AlunoMateriasVM> ObterListaMateriaViewModelNomeMateria(List<Materia> materias)
-        {
-            List<AlunoMateriasVM> materiasVmList = new List<AlunoMateriasVM>();
-
-            foreach (Materia materia in materias)
-            {
-                AlunoMateriasVM materiasVM = new AlunoMateriasVM();
-                materiasVM.NomeMateria = materia.NomeMateria;
-                materiasVmList.Add(materiasVM);
-            }
-
-            return materiasVmList;
-        }
-
-
-        public List<AlunoMateriasVM> ListaMateriasSomenteNome(AlunoMateriasVM dado)
-        {
-            try
-            {
-                List<Materia> materias = daoMateria.ObterListaMateriasSomenteNome();
-                List<AlunoMateriasVM> materiasForVm = ObterListaMateriaViewModelNomeMateria(materias);
-                List<AlunoMateriasVM> dadosCompletosList = new List<AlunoMateriasVM>();
-
-                return ObterListaMateriasParaViewModel(materiasForVm, dadosCompletosList);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        #endregion
 
         public List<AlunoMateriasVM> ObterListaAlunosEMaterias(List<AlunoMateriasVM> alunos, List<AlunoMateriasVM> materias, List<AlunoMateriasVM> dadosCompletosList)
         {
@@ -211,6 +122,95 @@ namespace ProjetoWindowsForm.ViewModel
             }
         }
 
+        #region PARA VIEW MODEL
+
+        public List<AlunoMateriasVM> ObterListaMateriasParaViewModel(List<AlunoMateriasVM> materias, List<AlunoMateriasVM> dadosCompletosList)
+        {
+            foreach (var materia in materias)
+            {
+                var dadosCompletos = new AlunoMateriasVM(
+                    materia.NomeMateria
+                );
+
+                dadosCompletosList.Add(dadosCompletos);
+            }
+
+
+            return dadosCompletosList;
+        }
+
+        public List<AlunoMateriasVM> ObterListaAlunoParaViewModel(List<Aluno> alunos)
+        {
+            List<AlunoMateriasVM> alunoMateriasVMList = new List<AlunoMateriasVM>();
+
+            foreach (Aluno aluno in alunos)
+            {
+                AlunoMateriasVM alunoMateriasVM = new AlunoMateriasVM();
+                alunoMateriasVM.Ra = aluno.Ra;
+                alunoMateriasVM.Nome = aluno.Nome;
+                alunoMateriasVM.Sala = aluno.Sala;
+
+                alunoMateriasVMList.Add(alunoMateriasVM);
+            }
+
+            return alunoMateriasVMList;
+        }
+
+        public List<AlunoMateriasVM> ObterListaMateriaParaViewModel(List<Materia> materias)
+        {
+            List<AlunoMateriasVM> materiasVmList = new List<AlunoMateriasVM>();
+
+            foreach (Materia materia in materias)
+            {
+                AlunoMateriasVM materiasVM = new AlunoMateriasVM();
+                materiasVM.NomeMateria = materia.NomeMateria;
+                materiasVM.N1 = Convert.ToString(materia.Notas[0]);
+                materiasVM.N2 = Convert.ToString(materia.Notas[1]);
+                materiasVM.N3 = Convert.ToString(materia.Notas[2]);
+                materiasVM.N4 = Convert.ToString(materia.Notas[3]);
+                materiasVM.Media = Convert.ToString(materia.Media);
+                materiasVM.Status = materia.Status;
+                materiasVM.Ra_aluno = materia.Ra;
+                materiasVmList.Add(materiasVM);
+            }
+
+            return materiasVmList;
+        }
+
+        public List<AlunoMateriasVM> ObterListaMateriaViewModelNomeMateria(List<Materia> materias)
+        {
+            List<AlunoMateriasVM> materiasVmList = new List<AlunoMateriasVM>();
+
+            foreach (Materia materia in materias)
+            {
+                AlunoMateriasVM materiasVM = new AlunoMateriasVM();
+                materiasVM.NomeMateria = materia.NomeMateria;
+                materiasVmList.Add(materiasVM);
+            }
+
+            return materiasVmList;
+        }
+        #endregion
+
+        #region CB MATEARIA
+
+        public List<AlunoMateriasVM> ListaMateriasSomenteNome(AlunoMateriasVM dado)
+        {
+            try
+            {
+                List<Materia> materias = daoMateria.ObterListaMateriasSomenteNome();
+                List<AlunoMateriasVM> materiasForVm = ObterListaMateriaViewModelNomeMateria(materias);
+                List<AlunoMateriasVM> dadosCompletosList = new List<AlunoMateriasVM>();
+
+                return ObterListaMateriasParaViewModel(materiasForVm, dadosCompletosList);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
+
         #region FILTERS BOLETIM
 
         public List<AlunoMateriasVM> ListaFiltradaPorNome(AlunoMateriasVM aluno)
@@ -272,7 +272,7 @@ namespace ProjetoWindowsForm.ViewModel
             try
             {
                 List<Aluno> alunos = daoAluno.ObterListaAlunos();
-                List<Materia> materias = daoMateria.ObterListaMateriasNotasPorStatus(aluno); 
+                List<Materia> materias = daoMateria.ObterListaMateriasNotasPorStatus(aluno);
                 List<AlunoMateriasVM> alunosForVm = ObterListaAlunoParaViewModel(alunos);
                 List<AlunoMateriasVM> materiasForVm = ObterListaMateriaParaViewModel(materias);
                 List<AlunoMateriasVM> dadosCompletosList = new List<AlunoMateriasVM>();
@@ -448,5 +448,7 @@ namespace ProjetoWindowsForm.ViewModel
             }
         }
         #endregion
+
+
     }
 }

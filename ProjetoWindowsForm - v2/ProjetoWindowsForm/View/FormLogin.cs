@@ -5,6 +5,7 @@ using ProjetoWindowsForm.Model;
 using ProjetoWindowsForm.Repository;
 using ProjetoWindowsForm.Entidades;
 using System.Threading;
+using ProjetoWindowsForm.Entities;
 
 namespace ProjetoWindowsForm
 {
@@ -36,9 +37,8 @@ namespace ProjetoWindowsForm
 
                 diretoria.Usuario = txtUsuario.Text;
                 diretoria.Senha = txtSenha.Text;
-                
 
-                diretoria = model.Login(diretoria);
+                model.LoginDiretoria(diretoria);
 
                 if (diretoria.Usuario == null)
                 {
@@ -76,7 +76,7 @@ namespace ProjetoWindowsForm
                 professor.Usuario = txtUsuario.Text;
                 professor.Senha = txtSenha.Text;
 
-                professor = model.LoginProf(professor);
+                model.LoginProf(professor);
 
                 if (string.IsNullOrEmpty(professor.Usuario))
                 {
@@ -105,38 +105,49 @@ namespace ProjetoWindowsForm
         }
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-            Diretoria usuario = new Diretoria();
-            Professor usuarioProf = new Professor();
-            Logar(usuario);
-            LogarProf(usuarioProf);
-        }
+            try
+            {
+                Diretoria usuario = new Diretoria();
+                Professor usuarioProf = new Professor();
+                Logar(usuario);
+                LogarProf(usuarioProf);
+            }
+            catch (Exception)
+            {
 
-        private void menuSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            Thread t1;
-            t1 = new Thread(abrirJanela);
-            t1.SetApartmentState(ApartmentState.MTA);
-            t1.Start();
-        }
-        private void abrirJanela(object obj)
-        {
-            Application.Run(new FormLogin());
+                throw;
+            }
         }
 
         private void txtSenha_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar) || char.IsWhiteSpace(e.KeyChar))
+            try
             {
-                e.Handled = true;
+                if (char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar) || char.IsWhiteSpace(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 
         private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar) || char.IsWhiteSpace(e.KeyChar))
+            try
             {
-                e.Handled = true;
+                if (char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar) || char.IsWhiteSpace(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

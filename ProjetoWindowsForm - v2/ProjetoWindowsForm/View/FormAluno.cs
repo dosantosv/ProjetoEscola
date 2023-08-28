@@ -11,6 +11,7 @@ namespace ProjetoWindowsForm.View
     public partial class FormAluno : Form
     {
         AlunoModel model = new AlunoModel();
+        ProfessorModel professorModel = new ProfessorModel();
         Aluno aluno = new Aluno();
 
         public FormAluno()
@@ -23,7 +24,7 @@ namespace ProjetoWindowsForm.View
             try
             {
                 gridAlunos.AutoGenerateColumns = false;
-                gridAlunos.DataSource = model.ObterListGeralAlunos();
+                gridAlunos.DataSource = model.Listar<Aluno>();
             }
             catch (Exception ex)
             {
@@ -117,7 +118,6 @@ namespace ProjetoWindowsForm.View
             txtRa.Text = "";
             txtNome.Text = "";
             dtNascimento.Text = "";
-            cbSala.Text = "";
         }
         private void SairLogin(object obj)
         {
@@ -130,22 +130,30 @@ namespace ProjetoWindowsForm.View
         }
         private void FormAluno_Load(object sender, EventArgs e)
         {
-            List<Professor> professores = model.Listar<Professor>();
-            List<string> salasUnicas = new List<string>();
-
-            foreach (Professor professor in professores)
+            try
             {
-                string sala = professor.Sala;
+                List<Professor> professores = professorModel.ObterListaTurmaProfessores();
+                List<string> salasUnicas = new List<string>();
 
-                if (!salasUnicas.Contains(sala))
+                foreach (Professor professor in professores)
                 {
-                    salasUnicas.Add(sala);
+                    string sala = professor.Sala;
+
+                    if (!salasUnicas.Contains(sala))
+                    {
+                        salasUnicas.Add(sala);
+                    }
                 }
+                cbSala.DataSource = salasUnicas;
+                cbSala.DisplayMember = "sala";
+                cbSexo.SelectedIndex = 0;
+                ListarDados();
             }
-            cbSala.DataSource = salasUnicas;
-            cbSala.DisplayMember = "sala";
-            cbSexo.SelectedIndex = 0;
-            ListarDados();
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void btnCadastrar_Click(object sender, EventArgs e)
@@ -156,19 +164,27 @@ namespace ProjetoWindowsForm.View
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtRa.Text))
+            try
             {
-                MessageBox.Show("Selecione na tabela um aluno para excluir!");
-                return;
-            }
+                if (string.IsNullOrEmpty(txtRa.Text))
+                {
+                    MessageBox.Show("Selecione na tabela um aluno para excluir!");
+                    return;
+                }
 
-            if (MessageBox.Show("Deseja mesmo excluir o Aluno?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
-            {
-                return;
+                if (MessageBox.Show("Deseja mesmo excluir o Aluno?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                {
+                    return;
+                }
+                ExcluirAluno(aluno);
+                ListarDados();
+                LimparDados();
             }
-            ExcluirAluno(aluno);
-            ListarDados();
-            LimparDados();
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
@@ -178,19 +194,26 @@ namespace ProjetoWindowsForm.View
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtRa.Text))
+            try
             {
-                MessageBox.Show("Selecione na tabela um aluno para editar");
-                return;
-            }
+                if (string.IsNullOrEmpty(txtRa.Text))
+                {
+                    MessageBox.Show("Selecione na tabela um aluno para editar");
+                    return;
+                }
 
-            if (MessageBox.Show("Deseja mesmo editar o Aluno?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
-            {
-                return;
+                if (MessageBox.Show("Deseja mesmo editar o Aluno?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                {
+                    return;
+                }
+                EditarAluno(aluno);
+                ListarDados();
+                LimparDados();
             }
-            EditarAluno(aluno);
-            ListarDados();
-            LimparDados();
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         private void gridAlunos_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -204,31 +227,93 @@ namespace ProjetoWindowsForm.View
 
         private void txtNome_KeyPress(object sender, KeyPressEventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
+            try
+            {
+                TextBox textBox = (TextBox)sender;
 
-            if (char.IsNumber(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar))
-            {
-                e.Handled = true;
+                if (char.IsNumber(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+                if (textBox.Text.Length >= 80 && e.KeyChar != '\b')
+                {
+                    e.Handled = true;
+                }
             }
-            if (textBox.Text.Length >= 80 && e.KeyChar != '\b')
+            catch (Exception)
             {
-                e.Handled = true;
+
+                throw;
             }
         }
 
         private void cbSala_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsNumber(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar) || char.IsWhiteSpace(e.KeyChar) || char.IsLetter(e.KeyChar))
+            try
             {
-                e.Handled = true;
+                if (char.IsNumber(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar) || char.IsWhiteSpace(e.KeyChar) || char.IsLetter(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+                if (e.KeyChar == '\b')
+                {
+                    e.Handled = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        private void cbSala_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Delete)
+                {
+                    e.SuppressKeyPress = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 
         private void cbSexo_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsNumber(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar) || char.IsWhiteSpace(e.KeyChar) || char.IsLetter(e.KeyChar))
+            try
             {
-                e.Handled = true;
+                if (char.IsNumber(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar) || char.IsWhiteSpace(e.KeyChar) || char.IsLetter(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+                if (e.KeyChar == '\b')
+                {
+                    e.Handled = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        private void cbSexo_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Delete)
+                {
+                    e.SuppressKeyPress = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 
@@ -249,5 +334,7 @@ namespace ProjetoWindowsForm.View
             voltar.SetApartmentState(ApartmentState.MTA);
             voltar.Start();
         }
+
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjetoWindowsForm.DAO;
 using ProjetoWindowsForm.Entidades;
+using ProjetoWindowsForm.Repository;
 
 namespace ProjetoWindowsForm.ViewModel
 {
@@ -40,32 +41,6 @@ namespace ProjetoWindowsForm.ViewModel
         {
 
 
-        }
-
-        public AlunoProfessorVM(long ra, string nome, string sala, string nomeMateria, string n1, string n2, string n3, string n4, string media, string status)
-        {
-            Ra = ra;
-            Nome = nome;
-            Sala = sala;
-            NomeMateria = nomeMateria;
-            N1 = n1;
-            N2 = n2;
-            N3 = n3;
-            N4 = n4;
-            Media = media;
-            Status = status;
-        }
-
-        public AlunoProfessorVM(string nomeMateria, string n1, string n2, string n3, string n4, string media, string status, int ra_aluno)
-        {
-            NomeMateria = nomeMateria;
-            N1 = n1;
-            N2 = n2;
-            N3 = n3;
-            N4 = n4;
-            Media = media;
-            Status = status;
-            Ra_aluno = ra_aluno;
         }
 
         public AlunoProfessorVM(long ra, string nome, string sala, string id, string nomeProf, string turmaProf, string materia, string nomeMateria, string n1, string n2, string n3, string n4, string media, string status)
@@ -145,12 +120,14 @@ namespace ProjetoWindowsForm.ViewModel
         }
         #endregion
 
-        public List<AlunoProfessorVM> ListMedias()
+        public List<AlunoProfessorVM> ListMedias(Professor professor)
         {
             try
             {
-                List<Aluno> alunos = daoAluno.ObterListaAlunosPorSalaDeAcordoComProfessorLogado();
-                List<Professor> professores = daoProfessor.ObterListaAlunosPorMateriaDeAcordoComProfessorLogado();
+                professor.Sala = Login.Sala;
+                professor.Materia = Login.Materia;
+                List<Aluno> alunos = daoAluno.ObterListaAlunosPorSalaDeAcordoComProfessorLogado(professor);
+                List<Professor> professores = daoProfessor.ObterListaAlunosPorMateriaDeAcordoComProfessorLogado(professor);
                 List<Materia> materias = daoMateria.ObterListaMateriasNotas();
                 List<AlunoProfessorVM> alunosForVm = ObterListaAlunoParaViewModel(alunos);
                 List<AlunoProfessorVM> professoresForVm = ObterListaProfessorParaViewModel(professores);

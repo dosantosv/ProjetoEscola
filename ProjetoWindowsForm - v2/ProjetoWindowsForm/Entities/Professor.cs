@@ -1,4 +1,5 @@
-﻿using ProjetoWindowsForm.Interface;
+﻿using ProjetoWindowsForm.Entities;
+using ProjetoWindowsForm.Interface;
 using System;
 
 namespace ProjetoWindowsForm.Entidades

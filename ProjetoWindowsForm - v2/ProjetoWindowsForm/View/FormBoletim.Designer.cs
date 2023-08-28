@@ -178,6 +178,7 @@
             this.cbSala.Size = new System.Drawing.Size(182, 23);
             this.cbSala.TabIndex = 48;
             this.cbSala.TextChanged += new System.EventHandler(this.cbSala_TextChanged);
+            this.cbSala.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbSala_KeyDown);
             this.cbSala.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbSala_KeyPress);
             // 
             // label5
@@ -205,6 +206,7 @@
             this.cbStatus.Size = new System.Drawing.Size(182, 23);
             this.cbStatus.TabIndex = 46;
             this.cbStatus.TextChanged += new System.EventHandler(this.cbStatus_TextChanged);
+            this.cbStatus.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbStatus_KeyDown);
             this.cbStatus.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbStatus_KeyPress);
             // 
             // label4
@@ -300,6 +302,7 @@
             this.gridBoletim.GridColor = System.Drawing.SystemColors.ButtonHighlight;
             this.gridBoletim.Location = new System.Drawing.Point(209, 197);
             this.gridBoletim.Name = "gridBoletim";
+            this.gridBoletim.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gridBoletim.Size = new System.Drawing.Size(960, 550);
             this.gridBoletim.TabIndex = 1;
             // 
