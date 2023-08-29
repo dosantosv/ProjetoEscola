@@ -198,6 +198,47 @@ namespace ProjetoWindowsForm.View
             }
         }
 
+        public void VerificarValoresDigitados(object sender, KeyPressEventArgs e)
+        {
+            try
+            {
+                TextBox textBox = (TextBox)sender;
+
+                if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)8)
+                {
+                    if (textBox.Text.Length < 4 || e.KeyChar == (char)8)
+                    {
+                        if (e.KeyChar == ',' && textBox.Text.Contains(","))
+                        {
+                            e.Handled = true;
+                        }
+                        else
+                        {
+                            e.Handled = false;
+
+                            if (e.KeyChar == ',' && textBox.Text.Length == 0)
+                            {
+                                textBox.Text = "0,";
+                                textBox.SelectionStart = textBox.Text.Length;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        e.Handled = true;
+                    }
+                }
+                else
+                {
+                    e.Handled = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         private void gridMedias_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             txtRa.Text = gridMedias.CurrentRow.Cells[0].Value.ToString();
@@ -332,170 +373,22 @@ namespace ProjetoWindowsForm.View
 
         private void txtN1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            try
-            {
-                TextBox textBox = (TextBox)sender;
-
-                if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)8)
-                {
-                    if (textBox.Text.Length < 4 || e.KeyChar == (char)8)
-                    {
-                        if (e.KeyChar == ',' && textBox.Text.Contains(","))
-                        {
-                            e.Handled = true;
-                        }
-                        else
-                        {
-                            e.Handled = false;
-
-                            if (e.KeyChar == ',' && textBox.Text.Length == 0)
-                            {
-                                textBox.Text = "0,";
-                                textBox.SelectionStart = textBox.Text.Length;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        e.Handled = true;
-                    }
-                }
-                else
-                {
-                    e.Handled = true;
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            VerificarValoresDigitados(sender, e);
         }
 
         private void txtN2_KeyPress(object sender, KeyPressEventArgs e)
         {
-            try
-            {
-                TextBox textBox = (TextBox)sender;
-
-                if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)8)
-                {
-                    if (textBox.Text.Length < 4 || e.KeyChar == (char)8)
-                    {
-                        if (e.KeyChar == ',' && textBox.Text.Contains(","))
-                        {
-                            e.Handled = true;
-                        }
-                        else
-                        {
-                            e.Handled = false;
-
-                            if (e.KeyChar == ',' && textBox.Text.Length == 0)
-                            {
-                                textBox.Text = "0,";
-                                textBox.SelectionStart = textBox.Text.Length;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        e.Handled = true;
-                    }
-                }
-                else
-                {
-                    e.Handled = true;
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            VerificarValoresDigitados(sender, e);
         }
 
         private void txtN3_KeyPress(object sender, KeyPressEventArgs e)
         {
-            try
-            {
-                TextBox textBox = (TextBox)sender;
-
-                if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)8)
-                {
-                    if (textBox.Text.Length < 4 || e.KeyChar == (char)8)
-                    {
-                        if (e.KeyChar == ',' && textBox.Text.Contains(","))
-                        {
-                            e.Handled = true;
-                        }
-                        else
-                        {
-                            e.Handled = false;
-
-                            if (e.KeyChar == ',' && textBox.Text.Length == 0)
-                            {
-                                textBox.Text = "0,";
-                                textBox.SelectionStart = textBox.Text.Length;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        e.Handled = true;
-                    }
-                }
-                else
-                {
-                    e.Handled = true;
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            VerificarValoresDigitados(sender, e);
         }
 
         private void txtN4_KeyPress(object sender, KeyPressEventArgs e)
         {
-            try
-            {
-                TextBox textBox = (TextBox)sender;
-
-                if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)8)
-                {
-                    if (textBox.Text.Length < 4 || e.KeyChar == (char)8)
-                    {
-                        if (e.KeyChar == ',' && textBox.Text.Contains(","))
-                        {
-                            e.Handled = true;
-                        }
-                        else
-                        {
-                            e.Handled = false;
-
-                            if (e.KeyChar == ',' && textBox.Text.Length == 0)
-                            {
-                                textBox.Text = "0,";
-                                textBox.SelectionStart = textBox.Text.Length;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        e.Handled = true;
-                    }
-                }
-                else
-                {
-                    e.Handled = true;
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            VerificarValoresDigitados(sender, e);
         }
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)

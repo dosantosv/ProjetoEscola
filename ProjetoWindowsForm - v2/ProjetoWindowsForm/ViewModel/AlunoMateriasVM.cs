@@ -82,46 +82,7 @@ namespace ProjetoWindowsForm.ViewModel
             return dadosCompletosList;
         }
 
-        public List<AlunoMateriasVM> ListaBoletim()
-        {
-            try
-            {
-                List<Aluno> alunos = daoAluno.ObterListaAlunos();
-                List<Materia> materias = daoMateria.ObterListaMateriasNotasComMedia();
-                List<AlunoMateriasVM> alunosForVm = ObterListaAlunoParaViewModel(alunos);
-                List<AlunoMateriasVM> materiasForVm = ObterListaMateriaParaViewModel(materias);
-                List<AlunoMateriasVM> dadosCompletosList = new List<AlunoMateriasVM>();
 
-                foreach (var aluno in alunos)
-                {
-                    var alunosCompletos = materiasForVm.Where(m => m.Ra_aluno == aluno.Ra && !string.IsNullOrEmpty(m.Media));
-
-                    foreach (var materia in alunosCompletos)
-                    {
-                        var dadosCompletos = new AlunoMateriasVM(
-                            aluno.Ra,
-                            aluno.Nome,
-                            aluno.Sala,
-                            materia.NomeMateria,
-                            materia.N1,
-                            materia.N2,
-                            materia.N3,
-                            materia.N4,
-                            materia.Media,
-                            materia.Status
-                        );
-
-                        dadosCompletosList.Add(dadosCompletos);
-                    }
-                }
-
-                return dadosCompletosList;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
 
         #region PARA VIEW MODEL
 
@@ -212,13 +173,13 @@ namespace ProjetoWindowsForm.ViewModel
         }
         #endregion
 
-        #region FILTERS BOLETIM
+        #region FILTRO BOLETIM
 
         public List<AlunoMateriasVM> ListaFiltrada(Filtros filtros)
         {
             try
             {
-                List<Aluno> alunos = daoAluno.ObterListaFiltrosAluno(filtros);
+                List<Aluno> alunos = daoAluno.ObterListaFiltradaDeAlunos(filtros);
                 List<Materia> materias = daoMateria.ObterListaMateriasNotasPorStatus(filtros);
                 List<AlunoMateriasVM> alunosForVm = ObterListaAlunoParaViewModel(alunos);
                 List<AlunoMateriasVM> materiasForVm = ObterListaMateriaParaViewModel(materias);
@@ -233,6 +194,46 @@ namespace ProjetoWindowsForm.ViewModel
         }
         #endregion
 
+        public List<AlunoMateriasVM> ListaBoletim()
+        {
+            try
+            {
+                List<Aluno> alunos = daoAluno.ObterListaAlunos();
+                List<Materia> materias = daoMateria.ObterListaMateriasNotasComMedia();
+                List<AlunoMateriasVM> alunosForVm = ObterListaAlunoParaViewModel(alunos);
+                List<AlunoMateriasVM> materiasForVm = ObterListaMateriaParaViewModel(materias);
+                List<AlunoMateriasVM> dadosCompletosList = new List<AlunoMateriasVM>();
+
+                foreach (var aluno in alunos)
+                {
+                    var alunosCompletos = materiasForVm.Where(m => m.Ra_aluno == aluno.Ra && !string.IsNullOrEmpty(m.Media));
+
+                    foreach (var materia in alunosCompletos)
+                    {
+                        var dadosCompletos = new AlunoMateriasVM(
+                            aluno.Ra,
+                            aluno.Nome,
+                            aluno.Sala,
+                            materia.NomeMateria,
+                            materia.N1,
+                            materia.N2,
+                            materia.N3,
+                            materia.N4,
+                            materia.Media,
+                            materia.Status
+                        );
+
+                        dadosCompletosList.Add(dadosCompletos);
+                    }
+                }
+
+                return dadosCompletosList;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
     }
 }

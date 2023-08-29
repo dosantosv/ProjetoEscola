@@ -158,6 +158,8 @@ namespace ProjetoWindowsForm.DAO
             }
         }
 
+        #endregion
+
         public List<Materia> ObterListaMateriasSomenteNome()
         {
             try
@@ -186,7 +188,6 @@ namespace ProjetoWindowsForm.DAO
                 con.FecharConexao();
             }
         }
-        #endregion 
 
         public List<Materia> ObterListaMaterias(MySqlCommand sql)
         {

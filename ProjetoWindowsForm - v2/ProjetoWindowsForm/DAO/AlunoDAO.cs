@@ -143,7 +143,7 @@ namespace ProjetoWindowsForm.DAO
 
         #region FILTERS GRID BOLETIM
 
-        public List<Aluno> ObterListaFiltrosAluno(Filtros filtros)
+        public List<Aluno> ObterListaFiltradaDeAlunos(Filtros filtros)
         {
             try
             {

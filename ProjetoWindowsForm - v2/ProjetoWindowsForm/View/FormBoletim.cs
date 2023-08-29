@@ -194,6 +194,7 @@ namespace ProjetoWindowsForm.View
             }
 
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             try
@@ -335,7 +336,7 @@ namespace ProjetoWindowsForm.View
         }
 
         private void txtRa_KeyPress(object sender, KeyPressEventArgs e)
-       {
+        {
             try
             {
                 TextBox textBox = (TextBox)sender;
