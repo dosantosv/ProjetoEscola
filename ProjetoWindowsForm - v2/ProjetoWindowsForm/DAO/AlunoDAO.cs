@@ -5,6 +5,7 @@ using ProjetoWindowsForm.Entidades;
 using MySql.Data.MySqlClient;
 using ProjetoWindowsForm.ViewModel;
 using ProjetoWindowsForm.Repository;
+using ProjetoWindowsForm.Entities;
 
 namespace ProjetoWindowsForm.DAO
 {
@@ -142,6 +143,52 @@ namespace ProjetoWindowsForm.DAO
 
         #region FILTERS GRID BOLETIM
 
+        public List<Aluno> ObterListaFiltrosAluno(Filtros filtros)
+        {
+            try
+            {
+                con.AbrirConexao();
+                MySqlCommand sql = new MySqlCommand("", con.con);
+                var querryAlunos = "SELECT ra, nome, sala FROM alunos";
+                var whereNecessarios = new List<string>();
+
+                if (filtros.Ra > 0)
+                {
+                    whereNecessarios.Add("ra LIKE @ra");
+                    sql.Parameters.AddWithValue("@ra", filtros.Ra + "%");
+                }
+
+                if (filtros.Nome != null)
+                {
+                    whereNecessarios.Add("nome LIKE @nome");
+                    sql.Parameters.AddWithValue("@nome", filtros.Nome + "%");
+                }
+
+                if (filtros.Sala != null)
+                {
+                    whereNecessarios.Add("sala = @sala");
+                    sql.Parameters.AddWithValue("@sala", filtros.Sala);
+                }
+
+                if (whereNecessarios.Count > 0)
+                {
+                    var where = " WHERE " + string.Join(" AND ", whereNecessarios);
+                    querryAlunos += where;
+                }
+
+                sql.CommandText = querryAlunos;
+                return ObterListaAlunos(sql);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.FecharConexao();
+            }
+        }
+
         public List<Aluno> ObterListaAlunos()
         {
             try
@@ -152,133 +199,6 @@ namespace ProjetoWindowsForm.DAO
             }
             catch (Exception)
             {
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-        }
-
-        public List<Aluno> ObterListaAlunosPorRa(AlunoMateriasVM aluno)
-        {
-            try
-            {
-                con.AbrirConexao();
-                MySqlCommand sql = new MySqlCommand("SELECT ra, nome, sala FROM alunos WHERE ra LIKE @ra", con.con);
-                sql.Parameters.AddWithValue("@ra", aluno.Ra + "%");
-
-                return ObterListaAlunos(sql);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-        }
-
-        public List<Aluno> ObterListaAlunoPorNome(AlunoMateriasVM aluno)
-        {
-            try
-            {
-                con.AbrirConexao();
-                MySqlCommand sql = new MySqlCommand("SELECT ra, nome, sala FROM alunos WHERE nome LIKE @nome", con.con);
-                sql.Parameters.AddWithValue("@nome", aluno.Nome + "%");
-                return ObterListaAlunos(sql);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-        }
-
-        public List<Aluno> ObterListaAlunoPorSala(AlunoMateriasVM aluno)
-        {
-            try
-            {
-                con.AbrirConexao();
-                MySqlCommand sql = new MySqlCommand("SELECT ra, nome, sala FROM alunos WHERE sala = @sala", con.con);
-                sql.Parameters.AddWithValue("@sala", aluno.Sala);
-
-                return ObterListaAlunos(sql);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-        }
-
-        public List<Aluno> ObterListaAlunoPorRaENome(AlunoMateriasVM aluno)
-        {
-            try
-            {
-                con.AbrirConexao();
-                MySqlCommand sql = new MySqlCommand("SELECT ra, nome, sala FROM alunos WHERE ra LIKE @ra AND nome LIKE @nome", con.con);
-                sql.Parameters.AddWithValue("@ra", aluno.Ra + "%");
-                sql.Parameters.AddWithValue("@nome", aluno.Nome + "%");
-
-                return ObterListaAlunos(sql);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-        }
-
-        public List<Aluno> ObterListaAlunoPorNomeESala(AlunoMateriasVM aluno)
-        {
-            try
-            {
-                con.AbrirConexao();
-                MySqlCommand sql = new MySqlCommand("SELECT ra, nome, sala FROM alunos WHERE nome LIKE @nome AND sala = @sala", con.con);
-                sql.Parameters.AddWithValue("@nome", aluno.Nome + "%");
-                sql.Parameters.AddWithValue("@sala", aluno.Sala);
-
-                return ObterListaAlunos(sql);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-                con.FecharConexao();
-            }
-        }
-
-        public List<Aluno> ObterListaAlunoPorNomeSalaERa(AlunoMateriasVM aluno)
-        {
-            try
-            {
-                con.AbrirConexao();
-                MySqlCommand sql = new MySqlCommand("SELECT ra, nome, sala FROM alunos WHERE ra LIKE @ra AND nome LIKE @nome AND sala = @sala", con.con);
-                sql.Parameters.AddWithValue("@ra", aluno.Ra + "%");
-                sql.Parameters.AddWithValue("@nome", aluno.Nome + "%");
-                sql.Parameters.AddWithValue("@sala", aluno.Sala);
-
-                return ObterListaAlunos(sql);
-            }
-            catch (Exception)
-            {
-
                 throw;
             }
             finally

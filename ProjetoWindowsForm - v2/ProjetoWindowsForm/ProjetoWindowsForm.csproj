@@ -161,6 +161,7 @@
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Entities\Aluno.cs" />
     <Compile Include="Entities\Diretoria.cs" />
+    <Compile Include="Entities\Filtros.cs" />
     <Compile Include="Entities\Materia.cs" />
     <Compile Include="Entities\Pessoa.cs" />
     <Compile Include="Entities\Professor.cs" />

@@ -5,7 +5,7 @@ using ProjetoWindowsForm.Entidades;
 using MySql.Data.MySqlClient;
 using ProjetoWindowsForm.ViewModel;
 using ProjetoWindowsForm.Repository;
-
+using ProjetoWindowsForm.Entities;
 
 namespace ProjetoWindowsForm.DAO
 {
@@ -130,14 +130,22 @@ namespace ProjetoWindowsForm.DAO
             }
         }
 
-        public List<Materia> ObterListaMateriasNotasPorStatus(AlunoMateriasVM materia)
+        public List<Materia> ObterListaMateriasNotasPorStatus(Filtros filtros)
         {
             try
             {
                 con.AbrirConexao();
-                MySqlCommand sql = new MySqlCommand("SELECT materia, N1, N2, N3, N4, media, status, ra_aluno FROM alunos_materias WHERE status = @status", con.con);
-                sql.Parameters.AddWithValue("@status", materia.Status);
+                MySqlCommand sql = new MySqlCommand("", con.con);
+                var querryMaterias = "SELECT materia, N1, N2, N3, N4, media, status, ra_aluno FROM alunos_materias WHERE media <> ''";
+                var whereNecessarios = new List<string>();
+                
+                if(filtros.Status != null)
+                {
+                    whereNecessarios.Add("status = @status");
+                    sql.Parameters.AddWithValue("@status", filtros.Status);
+                }
 
+                sql.CommandText = querryMaterias;
                 return ObterListaMaterias(sql);
             }
             catch (Exception)

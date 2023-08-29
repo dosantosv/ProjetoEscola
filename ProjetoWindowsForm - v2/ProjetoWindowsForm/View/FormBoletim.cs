@@ -2,12 +2,14 @@
 using System.Windows.Forms;
 using System.Threading;
 using ProjetoWindowsForm.ViewModel;
+using ProjetoWindowsForm.Entities;
 
 namespace ProjetoWindowsForm.View
 {
     public partial class FormBoletim : Form
     {
         AlunoMateriasVM viewModel = new AlunoMateriasVM();
+        Filtros filtros = new Filtros();
         public FormBoletim()
         {
             InitializeComponent();
@@ -26,7 +28,7 @@ namespace ProjetoWindowsForm.View
             }
         }
 
-        public void Filter(AlunoMateriasVM dado)
+        public void Filter(Filtros filtros)
         {
             try
             {
@@ -45,8 +47,8 @@ namespace ProjetoWindowsForm.View
                     cbStatus.Text == "Todos" &&
                     cbSala.Text == "Todos")
                 {
-                    dado.Ra = Convert.ToInt64(txtRa.Text);
-                    gridBoletim.DataSource = viewModel.ListaFiltradaPorRa(dado);
+                    filtros.Ra = Convert.ToInt64(txtRa.Text);
+                    gridBoletim.DataSource = viewModel.ListaFiltrada(filtros);
                     return;
                 }
 
@@ -55,8 +57,8 @@ namespace ProjetoWindowsForm.View
                     cbStatus.Text == "Todos" &&
                     cbSala.Text == "Todos")
                 {
-                    dado.Nome = txtNome.Text;
-                    gridBoletim.DataSource = viewModel.ListaFiltradaPorNome(dado);
+                    filtros.Nome = txtNome.Text;
+                    gridBoletim.DataSource = viewModel.ListaFiltrada(filtros);
                     return;
                 }
 
@@ -65,8 +67,8 @@ namespace ProjetoWindowsForm.View
                     !(cbStatus.Text == "Todos") &&
                     cbSala.Text == "Todos")
                 {
-                    dado.Status = cbStatus.Text;
-                    gridBoletim.DataSource = viewModel.ListaFiltradaPorStatus(dado);
+                    filtros.Status = cbStatus.Text;
+                    gridBoletim.DataSource = viewModel.ListaFiltrada(filtros);
                     return;
                 }
 
@@ -75,8 +77,8 @@ namespace ProjetoWindowsForm.View
                     cbStatus.Text == "Todos" &&
                     !(cbSala.Text == "Todos"))
                 {
-                    dado.Sala = cbSala.Text;
-                    gridBoletim.DataSource = viewModel.ListraFiltradaPorSala(dado);
+                    filtros.Sala = cbSala.Text;
+                    gridBoletim.DataSource = viewModel.ListaFiltrada(filtros);
                     return;
                 }
 
@@ -85,9 +87,9 @@ namespace ProjetoWindowsForm.View
                     cbStatus.Text == "Todos" &&
                     cbSala.Text == "Todos")
                 {
-                    dado.Ra = Convert.ToInt64(txtRa.Text);
-                    dado.Nome = txtNome.Text;
-                    gridBoletim.DataSource = viewModel.ListaFiltradaPorRaENome(dado);
+                    filtros.Ra = Convert.ToInt64(txtRa.Text);
+                    filtros.Nome = txtNome.Text;
+                    gridBoletim.DataSource = viewModel.ListaFiltrada(filtros);
                     return;
                 }
 
@@ -96,9 +98,9 @@ namespace ProjetoWindowsForm.View
                     !(cbStatus.Text == "Todos") &&
                     cbSala.Text == "Todos")
                 {
-                    dado.Ra = Convert.ToInt64(txtRa.Text);
-                    dado.Status = cbStatus.Text;
-                    gridBoletim.DataSource = viewModel.ListaFiltradaPorRaEStatus(dado);
+                    filtros.Ra = Convert.ToInt64(txtRa.Text);
+                    filtros.Status = cbStatus.Text;
+                    gridBoletim.DataSource = viewModel.ListaFiltrada(filtros);
                     return;
                 }
 
@@ -107,9 +109,9 @@ namespace ProjetoWindowsForm.View
                     !(cbStatus.Text == "Todos") &&
                     cbSala.Text == "Todos")
                 {
-                    dado.Nome = txtNome.Text;
-                    dado.Status = cbStatus.Text;
-                    gridBoletim.DataSource = viewModel.ListaFiltradaPorNomeEStatus(dado);
+                    filtros.Nome = txtNome.Text;
+                    filtros.Status = cbStatus.Text;
+                    gridBoletim.DataSource = viewModel.ListaFiltrada(filtros);
                     return;
                 }
 
@@ -118,9 +120,9 @@ namespace ProjetoWindowsForm.View
                     cbStatus.Text == "Todos" &&
                     !(cbSala.Text == "Todos"))
                 {
-                    dado.Nome = txtNome.Text;
-                    dado.Sala = cbSala.Text;
-                    gridBoletim.DataSource = viewModel.ListaFiltradaPorNomeESala(dado);
+                    filtros.Nome = txtNome.Text;
+                    filtros.Sala = cbSala.Text;
+                    gridBoletim.DataSource = viewModel.ListaFiltrada(filtros);
                     return;
                 }
 
@@ -129,9 +131,9 @@ namespace ProjetoWindowsForm.View
                     !(cbStatus.Text == "Todos") &&
                     !(cbSala.Text == "Todos"))
                 {
-                    dado.Status = cbStatus.Text;
-                    dado.Sala = cbSala.Text;
-                    gridBoletim.DataSource = viewModel.ListaFiltradaPorSalaEStatus(dado);
+                    filtros.Status = cbStatus.Text;
+                    filtros.Sala = cbSala.Text;
+                    gridBoletim.DataSource = viewModel.ListaFiltrada(filtros);
                     return;
                 }
 
@@ -140,11 +142,11 @@ namespace ProjetoWindowsForm.View
                     !(cbStatus.Text == "Todos") &&
                     !(cbSala.Text == "Todos"))
                 {
-                    dado.Ra = Convert.ToInt64(txtRa.Text);
-                    dado.Nome = txtNome.Text;
-                    dado.Status = cbStatus.Text;
-                    dado.Sala = cbSala.Text;
-                    gridBoletim.DataSource = viewModel.ListaFiltradaPorRaNomeSalaEStatus(dado);
+                    filtros.Ra = Convert.ToInt64(txtRa.Text);
+                    filtros.Nome = txtNome.Text;
+                    filtros.Status = cbStatus.Text;
+                    filtros.Sala = cbSala.Text;
+                    gridBoletim.DataSource = viewModel.ListaFiltrada(filtros);
                     return;
                 }
 
@@ -153,10 +155,10 @@ namespace ProjetoWindowsForm.View
                     !(cbStatus.Text == "Todos") &&
                     (cbSala.Text == "Todos"))
                 {
-                    dado.Ra = Convert.ToInt64(txtRa.Text);
-                    dado.Nome = txtNome.Text;
-                    dado.Status = cbStatus.Text;
-                    gridBoletim.DataSource = viewModel.ListaFiltradaPorRaNomeEStatus(dado);
+                    filtros.Ra = Convert.ToInt64(txtRa.Text);
+                    filtros.Nome = txtNome.Text;
+                    filtros.Status = cbStatus.Text;
+                    gridBoletim.DataSource = viewModel.ListaFiltrada(filtros);
                     return;
                 }
 
@@ -165,10 +167,10 @@ namespace ProjetoWindowsForm.View
                     (cbStatus.Text == "Todos") &&
                     !(cbSala.Text == "Todos"))
                 {
-                    dado.Ra = Convert.ToInt64(txtRa.Text);
-                    dado.Nome = txtNome.Text;
-                    dado.Sala = cbSala.Text;
-                    gridBoletim.DataSource = viewModel.ListaFiltradaPorRaNomeESala(dado);
+                    filtros.Ra = Convert.ToInt64(txtRa.Text);
+                    filtros.Nome = txtNome.Text;
+                    filtros.Sala = cbSala.Text;
+                    gridBoletim.DataSource = viewModel.ListaFiltrada(filtros);
                     return;
                 }
 
@@ -177,10 +179,10 @@ namespace ProjetoWindowsForm.View
                     !(cbStatus.Text == "Todos") &&
                     !(cbSala.Text == "Todos"))
                 {
-                    dado.Nome = txtNome.Text;
-                    dado.Status = cbStatus.Text;
-                    dado.Sala = cbSala.Text;
-                    gridBoletim.DataSource = viewModel.ListaFiltradaPorNomeStatusESala(dado);
+                    filtros.Nome = txtNome.Text;
+                    filtros.Status = cbStatus.Text;
+                    filtros.Sala = cbSala.Text;
+                    gridBoletim.DataSource = viewModel.ListaFiltrada(filtros);
                     return;
                 }
 
@@ -255,7 +257,7 @@ namespace ProjetoWindowsForm.View
         {
             try
             {
-                Filter(viewModel);
+                Filter(filtros);
 
                 if (string.IsNullOrEmpty(txtNome.Text))
                 {
@@ -281,7 +283,7 @@ namespace ProjetoWindowsForm.View
                 }
                 else
                 {
-                    Filter(viewModel);
+                    Filter(filtros);
                 }
             }
             catch (Exception)
@@ -302,7 +304,7 @@ namespace ProjetoWindowsForm.View
                 }
                 else
                 {
-                    Filter(viewModel);
+                    Filter(filtros);
                 }
             }
             catch (Exception)
@@ -322,7 +324,7 @@ namespace ProjetoWindowsForm.View
                 }
                 else
                 {
-                    Filter(viewModel);
+                    Filter(filtros);
                 }
             }
             catch (Exception)
